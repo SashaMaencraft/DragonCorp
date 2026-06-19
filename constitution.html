@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Конституция DragonCorp - Секретная редакция</title>
+    <style>
+        :root {
+            --primary: #4a1e8c;
+            --secondary: #7b3fe4;
+            --accent: #c13584;
+            --dark: #1a0b2e;
+            --light: #f5f5f5;
+            --text: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            padding: 0.8rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .logo-icon::before {
+            content: "🐉";
+            font-size: 24px;
+            transform: rotate(-15deg);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 0 10px rgba(123, 63, 228, 0.7);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 0.9rem;
+            padding: 0.3rem 0;
+            display: inline-block;
+        }
+        
+        nav a:hover {
+            color: white;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .constitution-container {
+            max-width: 900px;
+            margin: 1.5rem auto;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(123, 63, 228, 0.2);
+        }
+        
+        .constitution-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(123, 63, 228, 0.3);
+        }
+        
+        .constitution-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #7b3fe4, #c13584);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .constitution-header .secret-stamp {
+            display: inline-block;
+            background: rgba(193, 53, 132, 0.3);
+            border: 1px solid var(--accent);
+            padding: 0.2rem 1rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+        
+        .constitution-section {
+            margin-bottom: 2rem;
+        }
+        
+        .constitution-section h2 {
+            color: var(--secondary);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            border-left: 3px solid var(--accent);
+            padding-left: 0.8rem;
+        }
+        
+        .constitution-section h3 {
+            color: var(--accent);
+            margin: 1rem 0 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .constitution-section p {
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .constitution-section ul {
+            padding-left: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .constitution-section li {
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+        
+        .warning-box {
+            background: rgba(193, 53, 132, 0.15);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .warning-box p {
+            margin-bottom: 0;
+            font-size: 0.85rem;
+        }
+        
+        .signature-block {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(123, 63, 228, 0.3);
+            text-align: right;
+            font-style: italic;
+        }
+        
+        footer {
+            background: linear-gradient(to right, var(--primary), var(--dark));
+            padding: 2rem 0 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: white;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .footer-section p {
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.8rem;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .contact-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .unavailable {
+            color: #ff6b6b;
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 0.75rem;
+        }
+        
+        .copyright {
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 0 12px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            nav ul {
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .constitution-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            
+            .constitution-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.2rem;
+            }
+            
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .container {
+                width: 100%;
+                padding: 0 12px;
+            }
+            
+            header {
+                padding: 0.6rem 0;
+            }
+            
+            .logo-icon {
+                width: 38px;
+                height: 38px;
+            }
+            
+            .logo-icon::before {
+                font-size: 20px;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            nav ul {
+                gap: 0.8rem;
+            }
+            
+            nav a {
+                font-size: 0.75rem;
+            }
+            
+            .constitution-container {
+                padding: 1rem;
+                margin: 0.8rem;
+            }
+            
+            .constitution-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .constitution-section h2 {
+                font-size: 1.1rem;
+            }
+            
+            .constitution-section h3 {
+                font-size: 1rem;
+            }
+            
+            .constitution-section p,
+            .constitution-section li {
+                font-size: 0.8rem;
+            }
+            
+            .warning-box p {
+                font-size: 0.75rem;
+            }
+            
+            .signature-block {
+                font-size: 0.8rem;
+            }
+            
+            footer {
+                padding: 1.5rem 0 0.8rem;
+            }
+            
+            .footer-section h3 {
+                font-size: 1rem;
+            }
+            
+            .footer-section p {
+                font-size: 0.7rem;
+            }
+            
+            .footer-links a {
+                font-size: 0.7rem;
+            }
+            
+            .copyright {
+                font-size: 0.6rem;
+            }
+        }
+        
+        @media (max-width: 768px) and (orientation: landscape) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">DragonCorp</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="constitution.html">Конституция</a></li>
+                        <li><a href="policy.html">Политика</a></li>
+                        <li><a href="classes.html">Классы</a></li>
+                        <li><a href="personnel.html">Персонал</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="constitution-container">
+            <div class="constitution-header">
+                <h1>Конституция DragonCorp</h1>
+                <div class="secret-stamp">⚡ СЕКРЕТНАЯ РЕДАКЦИЯ ⚡</div>
+                <p style="margin-top: 0.8rem; font-size: 0.85rem;">Основа организации, принципы иерархии и правила сдерживания аномалий</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 1: Основание и Цели</h2>
+                <p>DragonCorp основана как организация, специализирующаяся на обеспечении безопасности, усмирении и защите от аномальных сущностей. Главная цель — сохранение баланса между миром людей и миром аномалий, защита человечества от неконтролируемых угроз.</p>
+                <p>Организация действует независимо от каких-либо государственных структур и подчиняется только внутреннему уставу и Верховному Командованию.</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 2: Иерархия и Власть</h2>
+                <h3>2.1. DC-S (DragonCorp Supreme)</h3>
+                <p>Высшая власть в организации. DC-S обладает абсолютным правом принятия решений по всем вопросам, включая изменение устава, объявление чрезвычайного положения и утверждение протоколов высшего уровня.</p>
+                <h3>2.2. DC-H (DragonCorp High Command)</h3>
+                <p>Ближний круг доверенных лиц DC-S. Отвечает за оперативное управление, координацию отделов и исполнение приказов Верховного Командования.</p>
+                <h3>2.3. DXC-C (DragonCorp Council)</h3>
+                <p>Консультативный орган, формируемый из руководителей ключевых департаментов. Обеспечивает обсуждение стратегических вопросов, но не обладает правом вето на решения DC-S.</p>
+                <h3>2.4. DRG-E (DragonCorp Executive)</h3>
+                <p>Исполнительное звено организации. Менеджеры и руководители среднего звена, отвечающие за реализацию поставленных задач.</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 3: Классификация Объектов</h2>
+                <p>Все аномальные объекты подлежат обязательной классификации согласно их опасности и степени изученности:</p>
+                <ul>
+                    <li><strong style="color: #e74c3c;">Класс D</strong> — испытуемые и временный персонал, задействованный в экспериментах.</li>
+                    <li><strong style="color: #3498db;">Класс Аномальный</strong> — объекты с необычными свойствами, не представляющие непосредственной угрозы.</li>
+                    <li><strong style="color: #f39c12;">Класс Опасный</strong> — объекты с непредсказуемыми свойствами, требующие усиленного контроля.</li>
+                    <li><strong style="color: #c0392b;">Класс Таинственный</strong> — объекты высшей угрозы, способные уничтожить человечество.</li>
+                    <li><strong style="color: #2ecc71;">Класс Безвредный</strong> — объекты, утратившие аномальные свойства или полностью нейтрализованные.</li>
+                </ul>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 4: Протоколы Безопасности</h2>
+                <p>Все сотрудники DragonCorp обязаны соблюдать установленные протоколы безопасности. Нарушение протоколов влечет за собой дисциплинарную ответственность вплоть до понижения уровня доступа или перевода в D-класс.</p>
+                <p>При возникновении угрозы нарушения сдерживания активируется протокол "Апокалипсис", предусматривающий полную эвакуацию и, при необходимости, ликвидацию объекта.</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 5: D-Класс</h2>
+                <p>Персонал D-класса используется для проведения экспериментов с аномальными объектами. Все члены D-класса проходят обязательное медицинское обследование и подписывают согласие на участие в исследованиях.</p>
+                <p>D-класс не имеет права покидать зоны содержания без сопровождения службы безопасности. Информация о личности членов D-класса является строго конфиденциальной.</p>
+            </div>
+            
+            <div class="warning-box">
+                <p><strong>⚠️ ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ</strong><br>
+                Нарушение Конституции DragonCorp рассматривается как угроза безопасности человечества. Виновные подлежат немедленной изоляции и допросу. Уровень допуска к информации определяется индивидуально и может быть изменен в любое время по решению DC-H.</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 6: Конфиденциальность</h2>
+                <p>Вся информация о деятельности DragonCorp, аномальных объектах и протоколах сдерживания является строго секретной. Разглашение информации третьим лицам карается в соответствии с внутренними правилами организации.</p>
+                <p>Сотрудники имеют доступ только к информации, соответствующей их уровню допуска. Повышение уровня допуска возможно только по решению DC-H после прохождения соответствующей проверки.</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 7: Заключительные Положения</h2>
+                <p>Настоящая Конституция вступает в силу с момента ее утверждения DC-S. Изменения и дополнения могут быть внесены только по решению Верховного Командования.</p>
+                <p>Все сотрудники DragonCorp обязаны ознакомиться с Конституцией и соблюдать ее положения. Незнание правил не освобождает от ответственности.</p>
+            </div>
+            
+            <div class="signature-block">
+                <p>Утверждено:</p>
+                <p><strong>DC-S | Владыка Дариан Вайпер</strong></p>
+                <p>Дата ратификации: 01.01.2025</p>
+                <p style="font-size: 0.7rem; color: rgba(224,224,224,0.6);">Редакция 2.7 (Секретная)</p>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>DragonCorp</h3>
+                    <p>Организация по защите от аномальных угроз. Фиолетовый дракон - наш символ и гарантия безопасности.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li class="contact-item"><span class="contact-icon">📧</span><a href="mailto:drakon.karol@yandex.ru">drakon.karol@yandex.ru</a></li>
+                        <li class="contact-item"><span class="contact-icon">📞</span><span class="unavailable">НЕ ДОСТУПЕН</span></li>
+                        <li class="contact-item"><span class="contact-icon">📍</span><span>Секретная локация</span></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="constitution.html">Конституция</a></li>
+                        <li><a href="policy.html">Политика</a></li>
+                        <li><a href="classes.html">Классы</a></li>
+                        <li><a href="personnel.html">Персонал</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">&copy; 2025 DragonCorp. Все права защищены.</div>
+        </div>
+    </footer>
+</body>
+</html>

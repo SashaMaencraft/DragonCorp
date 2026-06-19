@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Персонал DragonCorp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a1e8c;
+            --secondary: #7b3fe4;
+            --accent: #c13584;
+            --dark: #1a0b2e;
+            --light: #f5f5f5;
+            --text: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            padding: 0.8rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .logo-icon::before {
+            content: "🐉";
+            font-size: 24px;
+            transform: rotate(-15deg);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 0 10px rgba(123, 63, 228, 0.7);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 0.9rem;
+            padding: 0.3rem 0;
+            display: inline-block;
+        }
+        
+        nav a:hover {
+            color: white;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .personnel-container {
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(123, 63, 228, 0.2);
+        }
+        
+        .personnel-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(123, 63, 228, 0.3);
+        }
+        
+        .personnel-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(to right, #7b3fe4, #c13584);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .personnel-header p {
+            font-size: 0.95rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .staff-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(123, 63, 228, 0.2);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .staff-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .staff-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+        
+        .staff-card.administration::before { background: #9b59b6; }
+        .staff-card.research::before { background: #3498db; }
+        .staff-card.security::before { background: #e74c3c; }
+        .staff-card.medical::before { background: #2ecc71; }
+        .staff-card.technical::before { background: #f39c12; }
+        
+        .staff-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 15px rgba(193, 53, 132, 0.5);
+            font-size: 2rem;
+            color: white;
+            transition: transform 0.3s;
+        }
+        
+        .staff-card:hover .staff-avatar {
+            transform: scale(1.03);
+        }
+        
+        .staff-name {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 0.2rem;
+        }
+        
+        .staff-position {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .staff-code {
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            margin-bottom: 0.8rem;
+            display: inline-block;
+        }
+        
+        .staff-description {
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .clearance-badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-top: auto;
+        }
+        
+        .clearance-5 { background: #9b59b6; color: white; }
+        .clearance-4 { background: #e74c3c; color: white; }
+        .clearance-3 { background: #3498db; color: white; }
+        .clearance-2 { background: #f39c12; color: white; }
+        .clearance-1 { background: #2ecc71; color: white; }
+        .clearance-0 { background: #95a5a6; color: white; }
+        
+        .department-title {
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--accent);
+            font-size: 1.4rem;
+            color: white;
+        }
+        
+        .department-title i {
+            margin-right: 8px;
+            color: var(--secondary);
+        }
+        
+        footer {
+            background: linear-gradient(to right, var(--primary), var(--dark));
+            padding: 2rem 0 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: white;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .footer-section p {
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.8rem;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .contact-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .unavailable {
+            color: #ff6b6b;
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 0.75rem;
+        }
+        
+        .copyright {
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 0 12px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            nav ul {
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .personnel-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            
+            .personnel-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.2rem;
+            }
+            
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .container {
+                width: 100%;
+                padding: 0 12px;
+            }
+            
+            header {
+                padding: 0.6rem 0;
+            }
+            
+            .logo-icon {
+                width: 38px;
+                height: 38px;
+            }
+            
+            .logo-icon::before {
+                font-size: 20px;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            nav ul {
+                gap: 0.8rem;
+            }
+            
+            nav a {
+                font-size: 0.75rem;
+            }
+            
+            .personnel-container {
+                padding: 1rem;
+                margin: 0.8rem;
+            }
+            
+            .personnel-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .personnel-header p {
+                font-size: 0.85rem;
+            }
+            
+            .department-title {
+                font-size: 1.2rem;
+                margin: 1.5rem 0 0.8rem;
+            }
+            
+            .staff-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .staff-card {
+                padding: 1rem;
+            }
+            
+            .staff-avatar {
+                width: 65px;
+                height: 65px;
+                font-size: 1.6rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .staff-name {
+                font-size: 1rem;
+            }
+            
+            .staff-position {
+                font-size: 0.7rem;
+            }
+            
+            .staff-code {
+                font-size: 0.65rem;
+            }
+            
+            .staff-description {
+                font-size: 0.75rem;
+            }
+            
+            .clearance-badge {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.6rem;
+            }
+            
+            footer {
+                padding: 1.5rem 0 0.8rem;
+            }
+            
+            .footer-section h3 {
+                font-size: 1rem;
+            }
+            
+            .footer-section p {
+                font-size: 0.7rem;
+            }
+            
+            .footer-links a {
+                font-size: 0.7rem;
+            }
+            
+            .copyright {
+                font-size: 0.6rem;
+            }
+        }
+        
+        @media (max-width: 768px) and (orientation: landscape) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .staff-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">DragonCorp</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="policy.html">Политика</a></li>
+                        <li><a href="classes.html">Классы</a></li>
+                        <li><a href="personnel.html">Персонал</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="personnel-container">
+            <div class="personnel-header">
+                <h1>Сотрудники DragonCorp</h1>
+                <p>Наши люди — главная ценность и гарантия безопасности. Каждый сотрудник имеет четко определенный уровень допуска.</p>
+            </div>
+            
+            <h2 class="department-title"><i class="fas fa-crown"></i> Администрация и Верховное Командование</h2>
+            <div class="staff-grid">
+                <div class="staff-card administration">
+                    <div class="staff-avatar"><i class="fas fa-dragon"></i></div>
+                    <div class="staff-name">Владыка Дариан Вайпер</div>
+                    <div class="staff-position">Основатель и Верховный Командующий</div>
+                    <div class="staff-code">DC-S-1</div>
+                    <div class="staff-description">Таинственный основатель DragonCorp. Обладает абсолютной властью и доступом ко всем уровням секретности.</div>
+                    <span class="clearance-badge clearance-5">Уровень доступа: 5</span>
+                </div>
+                <div class="staff-card administration">
+                    <div class="staff-avatar"><i class="fas fa-shield-halved"></i></div>
+                    <div class="staff-name">Моргана "Стальной Щит" Торн</div>
+                    <div class="staff-position">Глава Службы Безопасности</div>
+                    <div class="staff-code">DC-H-1</div>
+                    <div class="staff-description">Координирует все операции по сдерживанию. Лично руководит отрядами быстрого реагирования.</div>
+                    <span class="clearance-badge clearance-5">Уровень доступа: 5</span>
+                </div>
+                <div class="staff-card administration">
+                    <div class="staff-avatar"><i class="fas fa-flask"></i></div>
+                    <div class="staff-name">Доктор Элиан Вектор</div>
+                    <div class="staff-position">Директор Научного Департамента</div>
+                    <div class="staff-code">DXC-C-2</div>
+                    <div class="staff-description">Ведущий ученый в области аномалистики. Автор множества протоколов сдерживания.</div>
+                    <span class="clearance-badge clearance-5">Уровень доступа: 5</span>
+                </div>
+            </div>
+
+            <h2 class="department-title"><i class="fas fa-microscope"></i> Научный отдел</h2>
+            <div class="staff-grid">
+                <div class="staff-card research">
+                    <div class="staff-avatar"><i class="fas fa-user-astronaut"></i></div>
+                    <div class="staff-name">Доктор Серафина Кейн</div>
+                    <div class="staff-position">Старший Исследователь</div>
+                    <div class="staff-code">RS-2</div>
+                    <div class="staff-description">Специализируется на изучении биологических аномалий и меметического воздействия.</div>
+                    <span class="clearance-badge clearance-4">Уровень доступа: 4</span>
+                </div>
+                <div class="staff-card research">
+                    <div class="staff-avatar"><i class="fas fa-dna"></i></div>
+                    <div class="staff-name">Профессор Лилиан Веспер</div>
+                    <div class="staff-position">Главный Аналитик Данных</div>
+                    <div class="staff-code">RS-3</div>
+                    <div class="staff-description">Отвечает за обработку и систематизацию всех экспериментальных данных.</div>
+                    <span class="clearance-badge clearance-3">Уровень доступа: 3</span>
+                </div>
+                <div class="staff-card research">
+                    <div class="staff-avatar"><i class="fas fa-robot"></i></div>
+                    <div class="staff-name">Доктор Корвин Блэквуд</div>
+                    <div class="staff-position">Полевой Исследователь</div>
+                    <div class="staff-code">RS-4</div>
+                    <div class="staff-description">Изучает аномалии, связанные с технологиями и пространственно-временными искажениями.</div>
+                    <span class="clearance-badge clearance-3">Уровень доступа: 3</span>
+                </div>
+            </div>
+
+            <h2 class="department-title"><i class="fas fa-shield-halved"></i> Служба безопасности</h2>
+            <div class="staff-grid">
+                <div class="staff-card security">
+                    <div class="staff-avatar"><i class="fas fa-user-ninja"></i></div>
+                    <div class="staff-name">Коммандер Рэйвен Стоун</div>
+                    <div class="staff-position">Командир Охраны</div>
+                    <div class="staff-code">SEC-1</div>
+                    <div class="staff-description">Отвечает за охрану объектов класса Keter. Ветеран множества инцидентов.</div>
+                    <span class="clearance-badge clearance-4">Уровень доступа: 4</span>
+                </div>
+                <div class="staff-card security">
+                    <div class="staff-avatar"><i class="fas fa-skull"></i></div>
+                    <div class="staff-name">Сержант Грим Вульф</div>
+                    <div class="staff-position">Спецназовец, группа "Омега"</div>
+                    <div class="staff-code">SEC-2</div>
+                    <div class="staff-description">Эксперт по силовому сдерживанию и ликвидации угроз.</div>
+                    <span class="clearance-badge clearance-4">Уровень доступа: 4</span>
+                </div>
+                <div class="staff-card security">
+                    <div class="staff-avatar"><i class="fas fa-eye"></i></div>
+                    <div class="staff-name">Лейтенант Вера Найт</div>
+                    <div class="staff-position">Снайпер, Наблюдатель</div>
+                    <div class="staff-code">SEC-3</div>
+                    <div class="staff-description">Обеспечивает дистанционную поддержку и слежение за объектами.</div>
+                    <span class="clearance-badge clearance-3">Уровень доступа: 3</span>
+                </div>
+            </div>
+
+            <h2 class="department-title"><i class="fas fa-heart-pulse"></i> Медицинский отдел</h2>
+            <div class="staff-grid">
+                <div class="staff-card medical">
+                    <div class="staff-avatar"><i class="fas fa-user-md"></i></div>
+                    <div class="staff-name">Доктор Изольда Грей</div>
+                    <div class="staff-position">Главный Врач</div>
+                    <div class="staff-code">MED-1</div>
+                    <div class="staff-description">Руководит медицинской службой и карантинными мероприятиями.</div>
+                    <span class="clearance-badge clearance-4">Уровень доступа: 4</span>
+                </div>
+                <div class="staff-card medical">
+                    <div class="staff-avatar"><i class="fas fa-brain"></i></div>
+                    <div class="staff-name">Доктор Мира Соларис</div>
+                    <div class="staff-position">Психиатр, Специалист по меметике</div>
+                    <div class="staff-code">MED-2</div>
+                    <div class="staff-description">Занимается психологической реабилитацией персонала.</div>
+                    <span class="clearance-badge clearance-3">Уровень доступа: 3</span>
+                </div>
+            </div>
+
+            <h2 class="department-title"><i class="fas fa-gears"></i> Технический отдел</h2>
+            <div class="staff-grid">
+                <div class="staff-card technical">
+                    <div class="staff-avatar"><i class="fas fa-user-gear"></i></div>
+                    <div class="staff-name">Инженер Орсон Кейдж</div>
+                    <div class="staff-position">Главный Инженер</div>
+                    <div class="staff-code">TECH-1</div>
+                    <div class="staff-description">Отвечает за работоспособность систем жизнеобеспечения и сдерживания.</div>
+                    <span class="clearance-badge clearance-3">Уровень доступа: 3</span>
+                </div>
+                <div class="staff-card technical">
+                    <div class="staff-avatar"><i class="fas fa-network-wired"></i></div>
+                    <div class="staff-name">Хакер "Фантом" Векс</div>
+                    <div class="staff-position">IT-Специалист</div>
+                    <div class="staff-code">TECH-2</div>
+                    <div class="staff-description">Обеспечивает защиту цифровых сетей от аномальных угроз.</div>
+                    <span class="clearance-badge clearance-3">Уровень доступа: 3</span>
+                </div>
+            </div>
+
+            <h2 class="department-title"><i class="fas fa-user"></i> D-Класс</h2>
+            <div class="staff-grid">
+                <div class="staff-card" style="opacity:0.85;">
+                    <div class="staff-avatar"><i class="fas fa-user"></i></div>
+                    <div class="staff-name">D-9981</div>
+                    <div class="staff-position">Испытуемый</div>
+                    <div class="staff-code">ID: 9981</div>
+                    <div class="staff-description">Временный персонал, задействованный в экспериментах с аномальными объектами.</div>
+                    <span class="clearance-badge clearance-0">Уровень доступа: 0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>DragonCorp</h3>
+                    <p>Организация по защите от аномальных угроз. Фиолетовый дракон - наш символ и гарантия безопасности.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li class="contact-item"><span class="contact-icon">📧</span><a href="mailto:drakon.karol@yandex.ru">drakon.karol@yandex.ru</a></li>
+                        <li class="contact-item"><span class="contact-icon">📞</span><span class="unavailable">НЕ ДОСТУПЕН</span></li>
+                        <li class="contact-item"><span class="contact-icon">📍</span><span>Секретная локация</span></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="policy.html">Политика</a></li>
+                        <li><a href="classes.html">Классы</a></li>
+                        <li><a href="personnel.html">Персонал</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">&copy; 2025 DragonCorp. Все права защищены.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.staff-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(15px)';
+                card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            });
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => observer.observe(card));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Классы Безопасности - DragonCorp</title>
+    <style>
+        :root {
+            --primary: #4a1e8c;
+            --secondary: #7b3fe4;
+            --accent: #c13584;
+            --dark: #1a0b2e;
+            --light: #f5f5f5;
+            --text: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            padding: 0.8rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .logo-icon::before {
+            content: "🐉";
+            font-size: 24px;
+            transform: rotate(-15deg);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 0 10px rgba(123, 63, 228, 0.7);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 0.9rem;
+            padding: 0.3rem 0;
+            display: inline-block;
+        }
+        
+        nav a:hover {
+            color: white;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Classes Page Styles */
+        .classes-container {
+            max-width: 1000px;
+            margin: 1.5rem auto;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(123, 63, 228, 0.2);
+        }
+        
+        .classes-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(123, 63, 228, 0.3);
+        }
+        
+        .classes-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(to right, #7b3fe4, #c13584);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .classes-header p {
+            font-size: 0.95rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .important-notice {
+            background: rgba(193, 53, 132, 0.2);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin-bottom: 1.8rem;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .important-notice h3 {
+            color: var(--accent);
+            margin-bottom: 0.4rem;
+            font-size: 1.1rem;
+        }
+        
+        .important-notice p {
+            font-size: 0.9rem;
+        }
+        
+        /* Кнопки навигации */
+        .nav-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+        
+        .nav-button {
+            background: rgba(123, 63, 228, 0.2);
+            border: 1px solid rgba(123, 63, 228, 0.4);
+            color: var(--text);
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        
+        .nav-button:hover {
+            background: rgba(123, 63, 228, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .nav-button.active {
+            background: rgba(123, 63, 228, 0.6);
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px rgba(123, 63, 228, 0.5);
+        }
+        
+        /* Детальная информация */
+        .detail-info {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(123, 63, 228, 0.2);
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .detail-info.active {
+            display: block;
+        }
+        
+        .detail-header {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(123, 63, 228, 0.3);
+        }
+        
+        .detail-icon {
+            font-size: 2.2rem;
+        }
+        
+        .detail-title {
+            font-size: 1.4rem;
+            color: white;
+        }
+        
+        .detail-code {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-family: monospace;
+            margin-left: auto;
+        }
+        
+        .detail-content h3 {
+            color: var(--accent);
+            margin: 1rem 0 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .detail-content p {
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .members-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        
+        .member-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid rgba(123, 63, 228, 0.2);
+        }
+        
+        .member-code {
+            font-family: monospace;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        
+        .member-card div:last-child {
+            font-size: 0.75rem;
+        }
+        
+        /* Classes Grid */
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .class-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(123, 63, 228, 0.2);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .class-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+        
+        .class-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .class-card.d-class::before { background: #e74c3c; }
+        .class-card.euclid-class::before { background: #f39c12; }
+        .class-card.keter-class::before { background: #c0392b; }
+        .class-card.anomalous-class::before { background: #3498db; }
+        .class-card.neutralized-class::before { background: #2ecc71; }
+        
+        .class-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+        
+        .class-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.6rem;
+            color: white;
+            text-align: center;
+        }
+        
+        .class-code {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            margin-bottom: 0.8rem;
+            font-family: monospace;
+        }
+        
+        .class-card p {
+            margin-bottom: 0.8rem;
+            font-size: 0.85rem;
+        }
+        
+        .danger-level {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+        }
+        
+        .danger-dots {
+            display: flex;
+            gap: 3px;
+        }
+        
+        .danger-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .danger-dot.active {
+            background: currentColor;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, var(--primary), var(--dark));
+            padding: 2rem 0 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: white;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .footer-section p {
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.8rem;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .contact-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .unavailable {
+            color: #ff6b6b;
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 0.75rem;
+        }
+        
+        .copyright {
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* ========== АДАПТИВНЫЕ СТИЛИ ========== */
+        
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 0 12px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            nav ul {
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .classes-container {
+                margin: 1rem;
+                padding: 1.2rem;
+            }
+            
+            .classes-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .nav-buttons {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+            
+            .detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .detail-code {
+                margin-left: 0;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.2rem;
+            }
+            
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .container {
+                width: 100%;
+                padding: 0 12px;
+            }
+            
+            header {
+                padding: 0.6rem 0;
+            }
+            
+            .logo-icon {
+                width: 38px;
+                height: 38px;
+            }
+            
+            .logo-icon::before {
+                font-size: 20px;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            nav ul {
+                gap: 0.8rem;
+            }
+            
+            nav a {
+                font-size: 0.75rem;
+            }
+            
+            .classes-container {
+                padding: 1rem;
+                margin: 0.8rem;
+            }
+            
+            .classes-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .classes-header p {
+                font-size: 0.85rem;
+            }
+            
+            .important-notice {
+                padding: 0.8rem;
+            }
+            
+            .important-notice h3 {
+                font-size: 1rem;
+            }
+            
+            .important-notice p {
+                font-size: 0.8rem;
+            }
+            
+            .nav-buttons {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+            
+            .nav-button {
+                padding: 0.6rem;
+                font-size: 0.75rem;
+            }
+            
+            .detail-info {
+                padding: 1rem;
+            }
+            
+            .detail-icon {
+                font-size: 1.8rem;
+            }
+            
+            .detail-title {
+                font-size: 1.2rem;
+            }
+            
+            .detail-code {
+                font-size: 0.7rem;
+            }
+            
+            .detail-content h3 {
+                font-size: 1rem;
+            }
+            
+            .detail-content p {
+                font-size: 0.8rem;
+            }
+            
+            .members-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+            
+            .member-card {
+                padding: 0.6rem;
+            }
+            
+            .member-code {
+                font-size: 0.75rem;
+            }
+            
+            .classes-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .class-card {
+                padding: 1rem;
+            }
+            
+            .class-icon {
+                font-size: 1.8rem;
+            }
+            
+            .class-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .class-card p {
+                font-size: 0.8rem;
+            }
+            
+            .danger-level {
+                font-size: 0.75rem;
+            }
+            
+            footer {
+                padding: 1.5rem 0 0.8rem;
+            }
+            
+            .footer-section h3 {
+                font-size: 1rem;
+            }
+            
+            .footer-section p {
+                font-size: 0.7rem;
+            }
+            
+            .footer-links a {
+                font-size: 0.7rem;
+            }
+            
+            .copyright {
+                font-size: 0.6rem;
+            }
+        }
+        
+        @media (max-width: 375px) {
+            .nav-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .members-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .classes-header h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) and (orientation: landscape) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .nav-buttons {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">DragonCorp</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="policy.html">Политика</a></li>
+                        <li><a href="classes.html">Классы</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="classes-container">
+            <div class="classes-header">
+                <h1>Классификация Объектов DragonCorp</h1>
+                <p>DragonCorp — организация, специализирующаяся на изучении и содержании аномальных объектов. Мы разработали свою систему классификации, чтобы эффективно управлять рисками и обеспечивать безопасность.</p>
+            </div>
+            
+            <div class="important-notice">
+                <h3>⚠️ Важная информация</h3>
+                <p>DragonCorp использует D-класс в качестве подопытных для изучения и содержания аномальных объектов.</p>
+            </div>
+            
+            <div class="nav-buttons">
+                <div class="nav-button active" data-target="dc-structure">Структура</div>
+                <div class="nav-button" data-target="d-class">Класс D</div>
+                <div class="nav-button" data-target="anomalous-class">Аномальный</div>
+                <div class="nav-button" data-target="keter-class">Таинственный</div>
+                <div class="nav-button" data-target="euclid-class">Опасный</div>
+                <div class="nav-button" data-target="neutralized-class">Безвредный</div>
+                <div class="nav-button" data-target="all-classes">Все классы</div>
+            </div>
+            
+            <div class="detail-info active" id="dc-structure">
+                <div class="detail-header">
+                    <div class="detail-icon">🏛️</div>
+                    <h2 class="detail-title">Структура DragonCorp</h2>
+                    <div class="detail-code">DXC-C / DC-H / DRG-E / DC-S</div>
+                </div>
+                <div class="detail-content">
+                    <p>DragonCorp использует сложную иерархическую структуру управления для обеспечения максимальной эффективности и безопасности.</p>
+                    
+                    <h3>DC-S (DragonCorp Supreme)</h3>
+                    <p><strong>Диктаторская власть.</strong> Полный контроль над всеми аспектами деятельности организации.</p>
+                    
+                    <h3>DC-H (DragonCorp High Command)</h3>
+                    <p><strong>Ближний круг доверенных лиц DC-S</strong>, ответственных за исполнение приказов.</p>
+                    
+                    <h3>DXC-C (DragonCorp Council)</h3>
+                    <p><strong>Показательная структура</strong>, не обладающая реальной властью.</p>
+                    
+                    <h3>DRG-E (DragonCorp Executive)</h3>
+                    <p><strong>Менеджеры</strong>, ответственные за выполнение рутинной работы.</p>
+                    
+                    <h3>Члены Совета DXC-C</h3>
+                    <div class="members-list">
+                        <div class="member-card"><div class="member-code">DXC-C-1</div><div>Председатель</div></div>
+                        <div class="member-card"><div class="member-code">DXC-C-2</div><div>Научный директор</div></div>
+                        <div class="member-card"><div class="member-code">DXC-C-3</div><div>Оперативный директор</div></div>
+                        <div class="member-card"><div class="member-code">DXC-C-4</div><div>Директор безопасности</div></div>
+                        <div class="member-card"><div class="member-code">DXC-C-5</div><div>Финансовый директор</div></div>
+                        <div class="member-card"><div class="member-code">DXC-C-6</div><div>Директор по кадрам</div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="detail-info" id="d-class">
+                <div class="detail-header">
+                    <div class="detail-icon">🧪</div>
+                    <h2 class="detail-title">Класс D</h2>
+                    <div class="detail-code">D-Class</div>
+                </div>
+                <div class="detail-content">
+                    <p><strong>Определение:</strong> D-класс — категория людей, используемых в качестве испытуемых в экспериментах с аномальными объектами.</p>
+                    <h3>Процедуры работы</h3>
+                    <p>Все члены D-класса проходят строгий отбор и содержатся в специально оборудованных помещениях с постоянным наблюдением.</p>
+                    <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><div class="danger-dot active" style="color:#e74c3c"></div><div class="danger-dot active" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div></div></div>
+                </div>
+            </div>
+            
+            <div class="detail-info" id="anomalous-class">
+                <div class="detail-header">
+                    <div class="detail-icon">🔮</div>
+                    <h2 class="detail-title">Класс Аномальный</h2>
+                    <div class="detail-code">Anomalous - DC</div>
+                </div>
+                <div class="detail-content">
+                    <p><strong>Определение:</strong> объекты с необычными свойствами, но не представляющие непосредственной угрозы.</p>
+                    <h3>Условия содержания</h3>
+                    <p>Объекты содержатся в стандартных условиях с периодическим мониторингом.</p>
+                    <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><div class="danger-dot active" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div></div></div>
+                </div>
+            </div>
+            
+            <div class="detail-info" id="keter-class">
+                <div class="detail-header">
+                    <div class="detail-icon">☠️</div>
+                    <h2 class="detail-title">Класс Таинственный</h2>
+                    <div class="detail-code">Keter - DC</div>
+                </div>
+                <div class="detail-content">
+                    <p><strong>Определение:</strong> Объекты, представляющие самую серьёзную угрозу для человечества.</p>
+                    <h3>Протоколы сдерживания</h3>
+                    <p>Объекты содержатся в максимально изолированных условиях с многоуровневой системой безопасности.</p>
+                    <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div></div></div>
+                </div>
+            </div>
+            
+            <div class="detail-info" id="euclid-class">
+                <div class="detail-header">
+                    <div class="detail-icon">⚠️</div>
+                    <h2 class="detail-title">Класс Опасный</h2>
+                    <div class="detail-code">Euclid - DC</div>
+                </div>
+                <div class="detail-content">
+                    <p><strong>Определение:</strong> Объекты, свойства которых до конца не изучены или непредсказуемы.</p>
+                    <h3>Условия содержания</h3>
+                    <p>Объекты содержатся в усиленных условиях с постоянным мониторингом.</p>
+                    <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot" style="color:#f39c12"></div><div class="danger-dot" style="color:#f39c12"></div></div></div>
+                </div>
+            </div>
+            
+            <div class="detail-info" id="neutralized-class">
+                <div class="detail-header">
+                    <div class="detail-icon">✅</div>
+                    <h2 class="detail-title">Класс Безвредный</h2>
+                    <div class="detail-code">Neutralized - DC</div>
+                </div>
+                <div class="detail-content">
+                    <p><strong>Определение:</strong> Объекты, которые больше не представляют угрозы.</p>
+                    <h3>Процедуры работы</h3>
+                    <p>Объекты могут использоваться для исследований с минимальными ограничениями.</p>
+                    <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div></div></div>
+                </div>
+            </div>
+            
+            <div class="detail-info" id="all-classes">
+                <div class="detail-header">
+                    <div class="detail-icon">📊</div>
+                    <h2 class="detail-title">Все классы безопасности</h2>
+                    <div class="detail-code">Полный обзор</div>
+                </div>
+                <div class="classes-grid">
+                    <div class="class-card d-class" data-target="d-class"><div class="class-icon">🧪</div><h3>Класс D</h3><div class="class-code">D-Class</div><p>Испытуемые в экспериментах с аномальными объектами.</p><div class="danger-level"><span>Опасность:</span><div class="danger-dots"><div class="danger-dot active" style="color:#e74c3c"></div><div class="danger-dot active" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div></div></div></div>
+                    <div class="class-card euclid-class" data-target="euclid-class"><div class="class-icon">⚠️</div><h3>Класс Опасный</h3><div class="class-code">Euclid - DC</div><p>Непредсказуемые объекты, требующие усиленного контроля.</p><div class="danger-level"><span>Опасность:</span><div class="danger-dots"><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot" style="color:#f39c12"></div><div class="danger-dot" style="color:#f39c12"></div></div></div></div>
+                    <div class="class-card keter-class" data-target="keter-class"><div class="class-icon">☠️</div><h3>Класс Таинственный</h3><div class="class-code">Keter - DC</div><p>Высшая угроза для человечества.</p><div class="danger-level"><span>Опасность:</span><div class="danger-dots"><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div></div></div></div>
+                    <div class="class-card anomalous-class" data-target="anomalous-class"><div class="class-icon">🔮</div><h3>Класс Аномальный</h3><div class="class-code">Anomalous - DC</div><p>Необычные свойства, минимальная угроза.</p><div class="danger-level"><span>Опасность:</span><div class="danger-dots"><div class="danger-dot active" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div></div></div></div>
+                    <div class="class-card neutralized-class" data-target="neutralized-class"><div class="class-icon">✅</div><h3>Класс Безвредный</h3><div class="class-code">Neutralized - DC</div><p>Нейтрализованные объекты.</p><div class="danger-level"><span>Опасность:</span><div class="danger-dots"><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div></div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>DragonCorp</h3>
+                    <p>Организация по защите от аномальных угроз. Фиолетовый дракон - наш символ и гарантия безопасности.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li class="contact-item"><span class="contact-icon">📧</span><a href="mailto:drakon.karol@yandex.ru">drakon.karol@yandex.ru</a></li>
+                        <li class="contact-item"><span class="contact-icon">📞</span><span class="unavailable">НЕ ДОСТУПЕН</span></li>
+                        <li class="contact-item"><span class="contact-icon">📍</span><span>Секретная локация</span></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="policy.html">Политика</a></li>
+                        <li><a href="classes.html">Классы</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">&copy; 2025 DragonCorp. Все права защищены.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const detailSections = document.querySelectorAll('.detail-info');
+            const classCards = document.querySelectorAll('.class-card');
+            
+            function activateSection(targetId) {
+                detailSections.forEach(section => section.classList.remove('active'));
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) targetSection.classList.add('active');
+                navButtons.forEach(button => {
+                    button.classList.remove('active');
+                    if (button.getAttribute('data-target') === targetId) button.classList.add('active');
+                });
+            }
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    activateSection(this.getAttribute('data-target'));
+                });
+            });
+            
+            classCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    activateSection(this.getAttribute('data-target'));
+                });
+            });
+            
+            const cards = document.querySelectorAll('.class-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(15px)';
+                card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            });
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => observer.observe(card));
+        });
+    </script>
+</body>
+</html>
