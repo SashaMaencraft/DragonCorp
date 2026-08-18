@@ -571,6 +571,97 @@
             animation: rotate 8s linear infinite;
             box-shadow: 0 0 25px rgba(123, 63, 228, 0.5);
         }
+
+        /* Стиль для бейджа "Не является иноагентом" */
+        .not-foreign-agent {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(123, 63, 228, 0.15);
+            border: 1px solid rgba(123, 63, 228, 0.3);
+            padding: 8px 14px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #d9b4ff;
+            margin: 8px 0 12px 0;
+            cursor: help;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .not-foreign-agent:hover {
+            background: rgba(123, 63, 228, 0.25);
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px rgba(123, 63, 228, 0.2);
+        }
+
+        .not-foreign-agent i {
+            color: #4ade80;
+            font-size: 1.1rem;
+        }
+
+        .not-foreign-agent .agent-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: 320px;
+            background: #1f0e3a;
+            color: var(--text);
+            text-align: left;
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(123, 63, 228, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            position: absolute;
+            z-index: 100;
+            bottom: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            font-weight: 400;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            pointer-events: none;
+            white-space: normal;
+            word-break: break-word;
+            backdrop-filter: blur(8px);
+        }
+
+        .not-foreign-agent .agent-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #1f0e3a;
+        }
+
+        .not-foreign-agent:hover .agent-tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .not-foreign-agent .agent-tooltip .highlight-ok {
+            color: #4ade80;
+            font-weight: 600;
+        }
+
+        .not-foreign-agent .agent-tooltip .highlight-warn {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .not-foreign-agent .agent-tooltip .highlight-info {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        .not-foreign-agent .agent-tooltip .fa-icon {
+            color: #fbbf24;
+            margin-right: 4px;
+        }
         
         /* Mission Section */
         .mission {
@@ -777,11 +868,15 @@
             .section-title { font-size: 1.6rem; }
             .footer-content { flex-direction: column; text-align: center; gap: 1.2rem; }
             .protocols-modal, .sounds-modal { width: 95%; padding: 1rem; }
+            .not-foreign-agent .agent-tooltip { width: 280px; left: 50%; transform: translateX(-50%) translateY(6px); }
+            .not-foreign-agent .agent-tooltip::after { left: 50%; }
         }
         
         @media (max-width: 480px) {
             .hero h1 { font-size: 1.5rem; }
             .protocols-btn, .sounds-btn { font-size: 0.7rem; }
+            .not-foreign-agent { font-size: 0.75rem; padding: 6px 12px; }
+            .not-foreign-agent .agent-tooltip { width: 240px; font-size: 0.7rem; padding: 10px 14px; }
         }
     </style>
 </head>
@@ -852,6 +947,21 @@
                 <div class="about-text">
                     <h3>Фиолетовый дракон - символ нашей силы</h3>
                     <p>DragonCorp - это организация, которая занимается обеспечением безопасности, усмирением и защитой аномальных сущностей. Мы являемся фондом, который работает над сохранением и управлением аномальными записями, чтобы защитить человечество от потенциальных угроз.</p>
+                    
+                    <!-- ===== НОВЫЙ ПУНКТ: НЕ ЯВЛЯЕТСЯ ИНОАГЕНТОМ ===== -->
+                    <div class="not-foreign-agent">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>✅ Не является иностранным агентом</span>
+                        <span class="agent-tooltip">
+                            <i class="fas fa-gavel fa-icon"></i> Официальное заявление в соответствии с <span class="highlight-info">Федеральным законом от 14.07.2022 № 255-ФЗ</span> и <span class="highlight-info">Приказом Минюста России от 01.12.2022 № 256</span>.<br><br>
+                            <span class="highlight-ok">✔️ Организация не включена в реестр иностранных агентов</span><br>
+                            <span class="highlight-ok">✔️ Не получает иностранного финансирования</span><br>
+                            <span class="highlight-ok">✔️ Действует в правовом поле Российской Федерации</span><br><br>
+                            <i class="fas fa-file-signature fa-icon"></i> Уведомление о статусе: <span class="highlight-ok">не является иноагентом</span> (в соответствии с п. 1 ст. 6 Федерального закона от 14.07.2022 № 255-ФЗ).<br>
+                            <span style="opacity:0.6; font-size:0.75rem;">Документы о статусе предоставляются по официальному запросу.</span>
+                        </span>
+                    </div>
+
                     <p>Наша компания, известная как фиолетовый дракон, считается одной из самых опасных организаций в мире. Мы предоставляем наши услуги как официальный сайт и проект, который специализируется на обеспечении безопасности и защите аномалий.</p>
                     <p>DragonCorp стремится к тому, чтобы обеспечить мир и порядок в мире, защищая человечество от опасных угроз и сохраняя баланс сил.</p>
                 </div>
@@ -935,7 +1045,7 @@
             { title: "👁️ Протокол «Мёртвая рука»", desc: "При необратимом захвате штаба — ликвидация высшего командования и активация протокола «Фатум». Никто не покинет зону.", badge: "Код: D-HAND-41 | Без права отмены", isRed: true, audioFile: "codeD-HAND-41.wav" }
         ];
 
-        // === НОВЫЕ ЗВУКОВЫЕ ФАЙЛЫ (ИСПРАВЛЕНО: Russian_Deco.mp3 согласно скриншоту) ===
+        // === ЗВУКОВЫЕ ФАЙЛЫ ===
         const soundsData = [
             { name: "🚨 Alarm.mp3", desc: "Сигнал тревоги — общая угроза", file: "Alarm.mp3" },
             { name: "⚡ Alpha.mp3", desc: "Код Альфа — высший приоритет", file: "Alpha.mp3" },
@@ -968,7 +1078,6 @@
         }
 
         function playAudio(fileName, buttonElement, displayName) {
-            // Если уже играет этот же звук на этой же кнопке - останавливаем
             if (currentAudio && currentButton === buttonElement && !currentAudio.paused) {
                 currentAudio.pause();
                 currentAudio.currentTime = 0;
@@ -978,7 +1087,6 @@
                 return;
             }
             
-            // Останавливаем предыдущее воспроизведение
             if (currentAudio) {
                 currentAudio.pause();
                 currentAudio.currentTime = 0;
@@ -1036,7 +1144,6 @@
             });
         }
 
-        // Построение списка протоколов
         function buildProtocolsList() {
             const container = document.getElementById('protocolsList');
             if (!container) return;
@@ -1070,7 +1177,6 @@
             });
         }
 
-        // Построение списка звуков
         function buildSoundsList() {
             const container = document.getElementById('soundsList');
             if (!container) return;
