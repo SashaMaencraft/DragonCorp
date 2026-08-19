@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Классы Безопасности - DragonCorp</title>
+    <title>Классификация объектов - DragonCorp</title>
     <style>
         :root {
             --primary: #4a1e8c;
@@ -38,7 +38,6 @@
             padding: 0 15px;
         }
         
-        /* Header Styles */
         header {
             background: linear-gradient(135deg, var(--primary), var(--dark));
             padding: 0.8rem 0;
@@ -70,8 +69,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
             flex-shrink: 0;
         }
         
@@ -126,7 +123,6 @@
             width: 100%;
         }
         
-        /* Classes Page Styles */
         .classes-container {
             max-width: 1000px;
             margin: 1.5rem auto;
@@ -177,7 +173,6 @@
             font-size: 0.9rem;
         }
         
-        /* Кнопки навигации */
         .nav-buttons {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -209,7 +204,6 @@
             box-shadow: 0 0 15px rgba(123, 63, 228, 0.5);
         }
         
-        /* Детальная информация */
         .detail-info {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
@@ -295,7 +289,6 @@
             font-size: 0.75rem;
         }
         
-        /* Classes Grid */
         .classes-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -388,7 +381,6 @@
             background: currentColor;
         }
         
-        /* Footer */
         footer {
             background: linear-gradient(to right, var(--primary), var(--dark));
             padding: 2rem 0 1rem;
@@ -480,8 +472,6 @@
             font-size: 0.7rem;
             color: rgba(255, 255, 255, 0.6);
         }
-        
-        /* ========== АДАПТИВНЫЕ СТИЛИ ========== */
         
         @media (max-width: 768px) {
             .container {
@@ -727,8 +717,10 @@
                 <nav>
                     <ul>
                         <li><a href="index.html">Главная</a></li>
+                        <li><a href="constitution.html">Устав</a></li>
                         <li><a href="policy.html">Политика</a></li>
                         <li><a href="classes.html">Классы</a></li>
+                        <li><a href="personnel.html">Персонал</a></li>
                         <li><a href="#contact">Контакты</a></li>
                     </ul>
                 </nav>
@@ -739,13 +731,13 @@
     <div class="container">
         <div class="classes-container">
             <div class="classes-header">
-                <h1>Классификация Объектов DragonCorp</h1>
-                <p>DragonCorp — организация, специализирующаяся на изучении и содержании аномальных объектов. Мы разработали свою систему классификации, чтобы эффективно управлять рисками и обеспечивать безопасность.</p>
+                <h1>Классификация объектов DragonCorp</h1>
+                <p>Международное бюро разработало единую систему классификации аномальных объектов, основанную на Едином Протоколе Классификации (ЕПК-2025), согласованном РФ, Украиной и НАТО.</p>
             </div>
             
             <div class="important-notice">
                 <h3>⚠️ Важная информация</h3>
-                <p>DragonCorp использует D-класс в качестве подопытных для изучения и содержания аномальных объектов.</p>
+                <p>В соответствии с Протоколом ЕПК-2025, D-класс формируется исключительно из добровольцев — граждан стран-участниц.</p>
             </div>
             
             <div class="nav-buttons">
@@ -762,31 +754,31 @@
                 <div class="detail-header">
                     <div class="detail-icon">🏛️</div>
                     <h2 class="detail-title">Структура DragonCorp</h2>
-                    <div class="detail-code">DXC-C / DC-H / DRG-E / DC-S</div>
+                    <div class="detail-code">ОК / ИК / НТС / ОШ</div>
                 </div>
                 <div class="detail-content">
-                    <p>DragonCorp использует сложную иерархическую структуру управления для обеспечения максимальной эффективности и безопасности.</p>
+                    <p>Международное бюро DragonCorp использует трехуровневую систему управления, обеспечивающую баланс интересов всех стран-участниц.</p>
                     
-                    <h3>DC-S (DragonCorp Supreme)</h3>
-                    <p><strong>Диктаторская власть.</strong> Полный контроль над всеми аспектами деятельности организации.</p>
+                    <h3>Объединенное Командование (ОК)</h3>
+                    <p><strong>Высший орган.</strong> Три представителя (РФ, Украина, НАТО). Решения принимаются консенсусом.</p>
                     
-                    <h3>DC-H (DragonCorp High Command)</h3>
-                    <p><strong>Ближний круг доверенных лиц DC-S</strong>, ответственных за исполнение приказов.</p>
+                    <h3>Исполнительный Комитет (ИК)</h3>
+                    <p><strong>Оперативное управление.</strong> Обеспечивает выполнение решений ОК.</p>
                     
-                    <h3>DXC-C (DragonCorp Council)</h3>
-                    <p><strong>Показательная структура</strong>, не обладающая реальной властью.</p>
+                    <h3>Научно-Технический Совет (НТС)</h3>
+                    <p><strong>Консультативный орган.</strong> Разрабатывает методологии и протоколы.</p>
                     
-                    <h3>DRG-E (DragonCorp Executive)</h3>
-                    <p><strong>Менеджеры</strong>, ответственные за выполнение рутинной работы.</p>
+                    <h3>Оперативный Штаб (ОШ)</h3>
+                    <p><strong>Исполнительное звено.</strong> Реализует поставленные задачи.</p>
                     
-                    <h3>Члены Совета DXC-C</h3>
+                    <h3>Члены Научно-Технического Совета</h3>
                     <div class="members-list">
-                        <div class="member-card"><div class="member-code">DXC-C-1</div><div>Председатель</div></div>
-                        <div class="member-card"><div class="member-code">DXC-C-2</div><div>Научный директор</div></div>
-                        <div class="member-card"><div class="member-code">DXC-C-3</div><div>Оперативный директор</div></div>
-                        <div class="member-card"><div class="member-code">DXC-C-4</div><div>Директор безопасности</div></div>
-                        <div class="member-card"><div class="member-code">DXC-C-5</div><div>Финансовый директор</div></div>
-                        <div class="member-card"><div class="member-code">DXC-C-6</div><div>Директор по кадрам</div></div>
+                        <div class="member-card"><div class="member-code">НТС-1</div><div>Председатель (РФ)</div></div>
+                        <div class="member-card"><div class="member-code">НТС-2</div><div>Научный директор (Украина)</div></div>
+                        <div class="member-card"><div class="member-code">НТС-3</div><div>Оперативный директор (НАТО)</div></div>
+                        <div class="member-card"><div class="member-code">НТС-4</div><div>Директор безопасности (РФ)</div></div>
+                        <div class="member-card"><div class="member-code">НТС-5</div><div>Финансовый директор (НАТО)</div></div>
+                        <div class="member-card"><div class="member-code">НТС-6</div><div>Директор по кадрам (Украина)</div></div>
                     </div>
                 </div>
             </div>
@@ -798,9 +790,9 @@
                     <div class="detail-code">D-Class</div>
                 </div>
                 <div class="detail-content">
-                    <p><strong>Определение:</strong> D-класс — категория людей, используемых в качестве испытуемых в экспериментах с аномальными объектами.</p>
+                    <p><strong>Определение:</strong> D-класс — категория добровольцев из числа граждан стран-участниц, используемых в качестве испытуемых в экспериментах с аномальными объектами.</p>
                     <h3>Процедуры работы</h3>
-                    <p>Все члены D-класса проходят строгий отбор и содержатся в специально оборудованных помещениях с постоянным наблюдением.</p>
+                    <p>Все члены D-класса проходят строгий отбор, медицинское обследование и подписывают добровольное согласие. Содержатся в специально оборудованных помещениях с постоянным наблюдением. Информация о личности строго конфиденциальна.</p>
                     <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><div class="danger-dot active" style="color:#e74c3c"></div><div class="danger-dot active" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div></div></div>
                 </div>
             </div>
@@ -812,9 +804,9 @@
                     <div class="detail-code">Anomalous - DC</div>
                 </div>
                 <div class="detail-content">
-                    <p><strong>Определение:</strong> объекты с необычными свойствами, но не представляющие непосредственной угрозы.</p>
+                    <p><strong>Определение:</strong> объекты с необычными свойствами, не представляющие непосредственной угрозы согласно оценке НТС.</p>
                     <h3>Условия содержания</h3>
-                    <p>Объекты содержатся в стандартных условиях с периодическим мониторингом.</p>
+                    <p>Объекты содержатся в стандартных условиях с периодическим мониторингом. Допускаются исследования с ограниченным доступом.</p>
                     <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><div class="danger-dot active" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div></div></div>
                 </div>
             </div>
@@ -826,9 +818,9 @@
                     <div class="detail-code">Keter - DC</div>
                 </div>
                 <div class="detail-content">
-                    <p><strong>Определение:</strong> Объекты, представляющие самую серьёзную угрозу для человечества.</p>
+                    <p><strong>Определение:</strong> Объекты, представляющие самую серьёзную угрозу для человечества. Требуют немедленного реагирования Объединенного Командования.</p>
                     <h3>Протоколы сдерживания</h3>
-                    <p>Объекты содержатся в максимально изолированных условиях с многоуровневой системой безопасности.</p>
+                    <p>Объекты содержатся в максимально изолированных условиях с многоуровневой системой безопасности. Доступ разрешен только по совместному решению ОК.</p>
                     <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div></div></div>
                 </div>
             </div>
@@ -840,9 +832,9 @@
                     <div class="detail-code">Euclid - DC</div>
                 </div>
                 <div class="detail-content">
-                    <p><strong>Определение:</strong> Объекты, свойства которых до конца не изучены или непредсказуемы.</p>
+                    <p><strong>Определение:</strong> Объекты, свойства которых до конца не изучены или непредсказуемы. Требуют постоянного мониторинга со стороны НТС.</p>
                     <h3>Условия содержания</h3>
-                    <p>Объекты содержатся в усиленных условиях с постоянным мониторингом.</p>
+                    <p>Объекты содержатся в усиленных условиях с постоянным мониторингом и круглосуточной охраной.</p>
                     <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot" style="color:#f39c12"></div><div class="danger-dot" style="color:#f39c12"></div></div></div>
                 </div>
             </div>
@@ -854,9 +846,9 @@
                     <div class="detail-code">Neutralized - DC</div>
                 </div>
                 <div class="detail-content">
-                    <p><strong>Определение:</strong> Объекты, которые больше не представляют угрозы.</p>
+                    <p><strong>Определение:</strong> Объекты, которые больше не представляют угрозы согласно заключению НТС.</p>
                     <h3>Процедуры работы</h3>
-                    <p>Объекты могут использоваться для исследований с минимальными ограничениями.</p>
+                    <p>Объекты могут использоваться для исследований с минимальными ограничениями. Данные рассекречиваются по решению ОК.</p>
                     <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div><div class="danger-dot" style="color:#2ecc71"></div></div></div>
                 </div>
             </div>
@@ -868,7 +860,7 @@
                     <div class="detail-code">Полный обзор</div>
                 </div>
                 <div class="classes-grid">
-                    <div class="class-card d-class" data-target="d-class"><div class="class-icon">🧪</div><h3>Класс D</h3><div class="class-code">D-Class</div><p>Испытуемые в экспериментах с аномальными объектами.</p><div class="danger-level"><span>Опасность:</span><div class="danger-dots"><div class="danger-dot active" style="color:#e74c3c"></div><div class="danger-dot active" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div></div></div></div>
+                    <div class="class-card d-class" data-target="d-class"><div class="class-icon">🧪</div><h3>Класс D</h3><div class="class-code">D-Class</div><p>Добровольцы-испытуемые из стран-участниц.</p><div class="danger-level"><span>Опасность:</span><div class="danger-dots"><div class="danger-dot active" style="color:#e74c3c"></div><div class="danger-dot active" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div><div class="danger-dot" style="color:#e74c3c"></div></div></div></div>
                     <div class="class-card euclid-class" data-target="euclid-class"><div class="class-icon">⚠️</div><h3>Класс Опасный</h3><div class="class-code">Euclid - DC</div><p>Непредсказуемые объекты, требующие усиленного контроля.</p><div class="danger-level"><span>Опасность:</span><div class="danger-dots"><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot active" style="color:#f39c12"></div><div class="danger-dot" style="color:#f39c12"></div><div class="danger-dot" style="color:#f39c12"></div></div></div></div>
                     <div class="class-card keter-class" data-target="keter-class"><div class="class-icon">☠️</div><h3>Класс Таинственный</h3><div class="class-code">Keter - DC</div><p>Высшая угроза для человечества.</p><div class="danger-level"><span>Опасность:</span><div class="danger-dots"><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div><div class="danger-dot active" style="color:#c0392b"></div></div></div></div>
                     <div class="class-card anomalous-class" data-target="anomalous-class"><div class="class-icon">🔮</div><h3>Класс Аномальный</h3><div class="class-code">Anomalous - DC</div><p>Необычные свойства, минимальная угроза.</p><div class="danger-level"><span>Опасность:</span><div class="danger-dots"><div class="danger-dot active" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div><div class="danger-dot" style="color:#3498db"></div></div></div></div>
@@ -883,7 +875,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>DragonCorp</h3>
-                    <p>Организация по защите от аномальных угроз. Фиолетовый дракон - наш символ и гарантия безопасности.</p>
+                    <p>Международное бюро по контролю аномалий. Символ единства РФ, Украины и НАТО.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Контакты</h3>
@@ -897,8 +889,10 @@
                     <h3>Быстрые ссылки</h3>
                     <ul class="footer-links">
                         <li><a href="index.html">Главная</a></li>
+                        <li><a href="constitution.html">Устав</a></li>
                         <li><a href="policy.html">Политика</a></li>
                         <li><a href="classes.html">Классы</a></li>
+                        <li><a href="personnel.html">Персонал</a></li>
                     </ul>
                 </div>
             </div>
