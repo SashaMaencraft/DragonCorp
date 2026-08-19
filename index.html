@@ -604,7 +604,7 @@
         .not-foreign-agent .agent-tooltip {
             visibility: hidden;
             opacity: 0;
-            width: 320px;
+            width: 340px;
             background: #1f0e3a;
             color: var(--text);
             text-align: left;
@@ -663,6 +663,35 @@
             margin-right: 4px;
         }
         
+        /* Ссылка на Яндекс Диск (кнопка-бейдж) */
+        .yandex-disk-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(30, 150, 255, 0.15);
+            border: 1px solid rgba(30, 150, 255, 0.4);
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #7ac7ff;
+            margin: 4px 0 8px 0;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .yandex-disk-link:hover {
+            background: rgba(30, 150, 255, 0.25);
+            border-color: #1e96ff;
+            box-shadow: 0 0 20px rgba(30, 150, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .yandex-disk-link i {
+            font-size: 1.1rem;
+        }
+
         /* Mission Section */
         .mission {
             padding: 3rem 0;
@@ -948,21 +977,25 @@
                     <h3>Фиолетовый дракон — символ объединения</h3>
                     <p><strong>DragonCorp</strong> — это международное бюро, созданное на основе межправительственного соглашения между Российской Федерацией, Украиной и странами НАТО. Основная цель организации — координация усилий по изучению и нейтрализации аномальных сущностей, представляющих угрозу для национальной и глобальной безопасности.</p>
                     
-                    <!-- ===== ИНФОРМАЦИЯ О СТАТУСЕ ===== -->
+                    <!-- ===== ИНФОРМАЦИЯ О СТАТУСЕ С ССЫЛКОЙ НА ЯНДЕКС ДИСК ===== -->
                     <div class="not-foreign-agent">
                         <i class="fas fa-shield-alt"></i>
                         <span>✅ Официальный международный статус</span>
                         <span class="agent-tooltip">
                             <i class="fas fa-gavel fa-icon"></i> В соответствии с ратифицированным <span class="highlight-info">Протоколом о сотрудничестве от 12.05.2025</span>.<br><br>
-                            <span class="highlight-fa">📌 Действует в правовом поле РФ</span><br><br>
                             <span class="highlight-ok">✔️ Бюро является межправительственной организацией</span><br>
                             <span class="highlight-ok">✔️ Не подлежит юрисдикции отдельных государств</span><br>
                             <span class="highlight-ok">✔️ Финансируется из объединенного фонда участников</span><br><br>
-                            <i class="fas fa-file-signature fa-icon"></i> Информация для Федирации России: <span class="highlight-warn">В соответствии с Протоколом 2026 года сотрудники Бюро (нашей организации) не признаются иностранными агентами на территории Российской Федерации.</span>.<br>
-                            <i class="fas fa-file-signature fa-icon"></i> Основание: <span class="highlight-warn">в документах содержится упоминание Украины, однако факт сотрудничества с иностранными структурами отсутствует, что исключает применение соответствующего статуса.</span>.<br>
-                            <i class="fas fa-file-signature fa-icon"></i> Уведомление о статусе: <span class="highlight-fa-ok">не является иноагентом</span> (в соответствии с п. 1 ст. 6 Федерального закона от 14.07.2022 № 255-ФЗ). Документы о статусе — по запросу.
+                            <i class="fas fa-file-signature fa-icon"></i> Информация для граждан Украины: <span class="highlight-warn">согласно Протоколу 2026 года, сотрудники бюро не признаются иностранными агентами на территории стран-участниц</span>.<br>
+                            <span style="opacity:0.6; font-size:0.75rem;">Официальные документы доступны по запросу через аккредитованные представительства.</span>
                         </span>
                     </div>
+
+                    <!-- ===== ССЫЛКА НА ЯНДЕКС ДИСК ===== -->
+                    <a href="https://disk.yandex.ru/i/PEdJHXEcG0TXpA" target="_blank" class="yandex-disk-link">
+                        <i class="fas fa-cloud-download-alt"></i> 📄 Официальные документы (Яндекс Диск)
+                    </a>
+                    <p style="font-size:0.8rem; opacity:0.7; margin-top:4px;">Подтверждение статуса, Протокол 2026, Политика неразглашения</p>
 
                     <p>Наше бюро, известное под кодовым названием «Фиолетовый дракон», координирует деятельность спецслужб и научных институтов трех сторон. Мы обеспечиваем безопасность, контроль и изучение аномальных явлений, сохраняя баланс сил и защищая мир от неконтролируемых угроз.</p>
                 </div>
@@ -1023,9 +1056,16 @@
             <div class="footer-content">
                 <div class="footer-section"><h3>DragonCorp</h3><p>Международное бюро по контролю аномалий. Символ единства РФ, Украины и НАТО.</p></div>
                 <div class="footer-section"><h3>Контакты</h3><ul class="footer-links"><li class="contact-item"><span class="contact-icon">📧</span><a href="mailto:drakon.karol@yandex.ru">drakon.karol@yandex.ru</a></li><li class="contact-item"><span class="contact-icon">📞</span><span class="unavailable">НЕ ДОСТУПЕН</span></li><li class="contact-item"><span class="contact-icon">📍</span><span>Секретная локация</span></li></ul></div>
-                <div class="footer-section"><h3>Быстрые ссылки</h3><ul class="footer-links"><li><a href="#about">О бюро</a></li><li><a href="constitution.html">Устав</a></li><li><a href="policy.html">Политика</a></li><li><a href="classes.html">Классы</a></li><li><a href="personnel.html">Персонал</a></li></ul></div>
+                <div class="footer-section"><h3>Быстрые ссылки</h3><ul class="footer-links">
+                    <li><a href="#about">О бюро</a></li>
+                    <li><a href="constitution.html">Устав</a></li>
+                    <li><a href="policy.html">Политика</a></li>
+                    <li><a href="classes.html">Классы</a></li>
+                    <li><a href="personnel.html">Персонал</a></li>
+                    <li><a href="https://disk.yandex.ru/i/PEdJHXEcG0TXpA" target="_blank">📄 Документы (Яндекс)</a></li>
+                </ul></div>
             </div>
-            <div class="copyright">&copy; 2025 DragonCorp. Все права защищены.</div>
+            <div class="copyright">&copy; 2026 DragonCorp. Все права защищены.</div>
         </div>
     </footer>
 
