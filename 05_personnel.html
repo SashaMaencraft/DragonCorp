@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Персонал · DragonCorp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111624;
+            --bg-card: #141b2b;
+            --border-color: #2a3a5a;
+            --border-gold: #8a7a3a;
+            --text-primary: #e8edf5;
+            --text-secondary: #b0baca;
+            --text-muted: #6a7a8a;
+            --gold: #c9a84c;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Arial', sans-serif; }
+        body { background-color: var(--bg-primary); color: var(--text-primary); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { width: 92%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header {
+            background: linear-gradient(180deg, #0a0e1a 0%, #141b2b 100%);
+            padding: 0.6rem 0;
+            border-bottom: 2px solid var(--border-gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.8);
+        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.6rem; }
+        .logo { display: flex; align-items: center; gap: 14px; }
+        .logo-icon { width: 48px; height: 48px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--gold); background: rgba(201,168,76,0.08); flex-shrink: 0; }
+        .logo-text { font-size: 1.5rem; font-weight: 600; color: var(--text-primary); letter-spacing: 2px; text-transform: uppercase; }
+        .logo-text span { color: var(--gold); }
+        nav ul { display: flex; list-style: none; gap: 1.2rem; flex-wrap: wrap; }
+        nav a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; transition: 0.2s; padding: 0.3rem 0; border-bottom: 1px solid transparent; }
+        nav a:hover { color: var(--text-primary); border-bottom-color: var(--gold); }
+        .page-container { max-width: 1200px; margin: 2rem auto; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-color); }
+        .page-header { text-align: center; border-bottom: 2px solid var(--border-gold); padding-bottom: 1.2rem; margin-bottom: 2rem; }
+        .page-header h1 { font-size: 2rem; font-weight: 300; letter-spacing: 4px; color: var(--text-primary); text-transform: uppercase; }
+        .dept-title { font-size: 1.3rem; font-weight: 500; color: var(--gold); border-left: 3px solid var(--gold); padding-left: 0.8rem; margin: 2rem 0 1rem; letter-spacing: 1px; }
+        .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .staff-card { background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 1.5rem; text-align: center; transition: 0.2s; }
+        .staff-card:hover { border-color: var(--border-gold); }
+        .staff-card .avatar { font-size: 2.8rem; color: var(--gold); margin-bottom: 0.4rem; }
+        .staff-card .name { font-size: 1.1rem; font-weight: 500; color: var(--text-primary); }
+        .staff-card .position { font-size: 0.85rem; color: var(--gold); letter-spacing: 0.5px; }
+        .staff-card .code { font-size: 0.7rem; color: var(--text-muted); font-family: monospace; margin: 0.2rem 0; }
+        .staff-card .desc { font-size: 0.85rem; color: var(--text-secondary); margin: 0.4rem 0; }
+        .clearance { display: inline-block; font-size: 0.65rem; padding: 0.1rem 0.8rem; border: 1px solid var(--border-gold); color: var(--gold); letter-spacing: 1px; margin-top: 0.4rem; }
+        .clearance.l5 { border-color: #8a6a3a; color: #c9a84c; }
+        .clearance.l4 { border-color: #8a4a3a; color: #c97a4c; }
+        .clearance.l3 { border-color: #3a6a8a; color: #6aaac9; }
+        .clearance.l2 { border-color: #6a8a3a; color: #8ac94a; }
+        .clearance.l0 { border-color: #4a4a4a; color: #6a6a6a; }
+        footer {
+            background: var(--bg-secondary);
+            border-top: 2px solid var(--border-gold);
+            padding: 2rem 0 1.2rem;
+            margin-top: auto;
+        }
+        .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
+        .footer-col { flex: 1; min-width: 180px; }
+        .footer-col h3 { font-size: 1rem; font-weight: 500; letter-spacing: 1px; color: var(--text-primary); margin-bottom: 1rem; border-bottom: 1px solid var(--border-gold); padding-bottom: 0.4rem; display: inline-block; }
+        .footer-col p, .footer-col li { font-size: 0.8rem; color: var(--text-secondary); list-style: none; margin-bottom: 0.4rem; }
+        .footer-col a { color: var(--text-secondary); text-decoration: none; transition: 0.2s; }
+        .footer-col a:hover { color: var(--gold); }
+        .copyright { border-top: 1px solid var(--border-color); padding-top: 1.2rem; text-align: center; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 1px; }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; text-align: center; }
+            nav ul { justify-content: center; gap: 0.8rem; }
+            .page-container { padding: 1.2rem; margin: 1rem; }
+            .page-header h1 { font-size: 1.5rem; }
+            .footer-grid { flex-direction: column; text-align: center; }
+            .footer-col h3 { display: block; }
+        }
+        @media (max-width: 480px) {
+            .logo-text { font-size: 1.1rem; }
+            .container { padding: 0 12px; }
+            .staff-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo"><div class="logo-icon">🐉</div><div class="logo-text"><span>Dragon</span>Corp</div></div>
+                <nav>
+                    <ul>
+                        <li><a href="01_main.html">Главная</a></li>
+                        <li><a href="02_charter.html">Устав</a></li>
+                        <li><a href="03_policy.html">Политика</a></li>
+                        <li><a href="04_classes.html">Классы</a></li>
+                        <li><a href="05_personnel.html">Персонал</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-container">
+            <div class="page-header">
+                <h1>Структура персонала</h1>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">Каждый сотрудник проходит строгий отбор и имеет уровень допуска</p>
+            </div>
+
+            <!-- Administration -->
+            <h2 class="dept-title"><i class="fas fa-crown" style="margin-right:8px;"></i> Администрация и Верховное командование</h2>
+            <div class="staff-grid">
+                <div class="staff-card"><div class="avatar">🐉</div><div class="name">Владыка Дариан Вайпер</div><div class="position">Основатель, Верховный Командующий</div><div class="code">DC-S-1</div><div class="desc">Абсолютная власть, доступ ко всем уровням</div><span class="clearance l5">Уровень 5</span></div>
+                <div class="staff-card"><div class="avatar">🛡️</div><div class="name">Моргана «Стальной Щит» Торн</div><div class="position">Глава Службы Безопасности</div><div class="code">DC-H-1</div><div class="desc">Координирует все операции по сдерживанию</div><span class="clearance l5">Уровень 5</span></div>
+                <div class="staff-card"><div class="avatar">🔬</div><div class="name">Доктор Элиан Вектор</div><div class="position">Директор Научного Департамента</div><div class="code">DXC-C-2</div><div class="desc">Ведущий ученый в области аномалистики</div><span class="clearance l5">Уровень 5</span></div>
+            </div>
+
+            <!-- Research -->
+            <h2 class="dept-title"><i class="fas fa-microscope" style="margin-right:8px;"></i> Научный отдел</h2>
+            <div class="staff-grid">
+                <div class="staff-card"><div class="avatar">🧬</div><div class="name">Доктор Серафина Кейн</div><div class="position">Старший исследователь, аномальная биология</div><div class="code">RS-2</div><div class="desc">Специалист по меметике и биологическим аномалиям</div><span class="clearance l4">Уровень 4</span></div>
+                <div class="staff-card"><div class="avatar">📊</div><div class="name">Профессор Лилиан Веспер</div><div class="position">Главный аналитик данных</div><div class="code">RS-3</div><div class="desc">Систематизация экспериментальных данных</div><span class="clearance l3">Уровень 3</span></div>
+                <div class="staff-card"><div class="avatar">🤖</div><div class="name">Доктор Корвин Блэквуд</div><div class="position">Полевой исследователь, техно-аномалии</div><div class="code">RS-4</div><div class="desc">Изучает пространственно-временные искажения</div><span class="clearance l3">Уровень 3</span></div>
+            </div>
+
+            <!-- Security -->
+            <h2 class="dept-title"><i class="fas fa-shield-halved" style="margin-right:8px;"></i> Служба безопасности</h2>
+            <div class="staff-grid">
+                <div class="staff-card"><div class="avatar">⚔️</div><div class="name">Коммандер Рэйвен Стоун</div><div class="position">Командир охраны</div><div class="code">SEC-1</div><div class="desc">Объекты класса Keter, ветеран инцидентов</div><span class="clearance l4">Уровень 4</span></div>
+                <div class="staff-card"><div class="avatar">💀</div><div class="name">Сержант Грим Вульф</div><div class="position">Тактическая группа «Омега»</div><div class="code">SEC-2</div><div class="desc">Спецназ, силовое сдерживание</div><span class="clearance l4">Уровень 4</span></div>
+                <div class="staff-card"><div class="avatar">👁️</div><div class="name">Лейтенант Вера Найт</div><div class="position">Снайпер, наблюдатель</div><div class="code">SEC-3</div><div class="desc">Дистанционная поддержка и слежение</div><span class="clearance l3">Уровень 3</span></div>
+            </div>
+
+            <!-- Medical -->
+            <h2 class="dept-title"><i class="fas fa-heart-pulse" style="margin-right:8px;"></i> Медицинский отдел</h2>
+            <div class="staff-grid">
+                <div class="staff-card"><div class="avatar">🩺</div><div class="name">Доктор Изольда Грей</div><div class="position">Главный врач</div><div class="code">MED-1</div><div class="desc">Медицинская служба, карантин</div><span class="clearance l4">Уровень 4</span></div>
+                <div class="staff-card"><div class="avatar">🧠</div><div class="name">Доктор Мира Соларис</div><div class="position">Психиатр, меметика</div><div class="code">MED-2</div><div class="desc">Психореабилитация, меметические угрозы</div><span class="clearance l3">Уровень 3</span></div>
+                <div class="staff-card"><div class="avatar">🧬</div><div class="name">Биолог Иден Фрост</div><div class="position">Специалист по био-аномалиям</div><div class="code">MED-3</div><div class="desc">Патогены и биологические угрозы</div><span class="clearance l3">Уровень 3</span></div>
+            </div>
+
+            <!-- Technical -->
+            <h2 class="dept-title"><i class="fas fa-gears" style="margin-right:8px;"></i> Технический отдел</h2>
+            <div class="staff-grid">
+                <div class="staff-card"><div class="avatar">🔧</div><div class="name">Инженер Орсон Кейдж</div><div class="position">Главный инженер</div><div class="code">TECH-1</div><div class="desc">Системы жизнеобеспечения и сдерживания</div><span class="clearance l3">Уровень 3</span></div>
+                <div class="staff-card"><div class="avatar">💻</div><div class="name">Хакер «Фантом» Векс</div><div class="position">IT, кибербезопасность</div><div class="code">TECH-2</div><div class="desc">Защита цифровых сетей</div><span class="clearance l3">Уровень 3</span></div>
+            </div>
+
+            <!-- D-Class -->
+            <h2 class="dept-title"><i class="fas fa-user" style="margin-right:8px;"></i> D-Класс (временный персонал)</h2>
+            <div class="staff-grid">
+                <div class="staff-card" style="opacity:0.7;"><div class="avatar">👤</div><div class="name">D-9981</div><div class="position">Испытуемый</div><div class="code">ID: 9981</div><div class="desc">Временный персонал для экспериментов</div><span class="clearance l0">Уровень 0</span></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col"><h3>DragonCorp</h3><p>Международное бюро по контролю аномалий</p></div>
+                <div class="footer-col"><h3>Контакты</h3><p>📧 <a href="mailto:drakon.karol@yandex.ru">drakon.karol@yandex.ru</a></p><p style="color:var(--text-muted);">📞 НЕ ДОСТУПЕН</p><p style="color:var(--text-muted);">📍 Секретная локация</p></div>
+                <div class="footer-col"><h3>Ссылки</h3><p><a href="01_main.html">Главная</a></p><p><a href="02_charter.html">Устав</a></p><p><a href="03_policy.html">Политика</a></p><p><a href="04_classes.html">Классы</a></p><p><a href="05_personnel.html">Персонал</a></p></div>
+            </div>
+            <div class="copyright">© 2026 DragonCorp</div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.staff-card');
+            cards.forEach((c, i) => {
+                c.style.opacity = '0';
+                c.style.transform = 'translateY(10px)';
+                c.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                setTimeout(() => { c.style.opacity = '1'; c.style.transform = 'translateY(0)'; }, 100 + i * 80);
+            });
+        });
+    </script>
+</body>
+</html>

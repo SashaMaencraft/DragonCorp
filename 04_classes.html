@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Классы объектов · DragonCorp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111624;
+            --bg-card: #141b2b;
+            --border-color: #2a3a5a;
+            --border-gold: #8a7a3a;
+            --text-primary: #e8edf5;
+            --text-secondary: #b0baca;
+            --text-muted: #6a7a8a;
+            --gold: #c9a84c;
+            --red: #8a3a3a;
+            --blue: #3a6a8a;
+            --green: #3a7a4a;
+            --orange: #8a7a2a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Arial', sans-serif; }
+        body { background-color: var(--bg-primary); color: var(--text-primary); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { width: 92%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header {
+            background: linear-gradient(180deg, #0a0e1a 0%, #141b2b 100%);
+            padding: 0.6rem 0;
+            border-bottom: 2px solid var(--border-gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.8);
+        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.6rem; }
+        .logo { display: flex; align-items: center; gap: 14px; }
+        .logo-icon { width: 48px; height: 48px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--gold); background: rgba(201,168,76,0.08); flex-shrink: 0; }
+        .logo-text { font-size: 1.5rem; font-weight: 600; color: var(--text-primary); letter-spacing: 2px; text-transform: uppercase; }
+        .logo-text span { color: var(--gold); }
+        nav ul { display: flex; list-style: none; gap: 1.2rem; flex-wrap: wrap; }
+        nav a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; transition: 0.2s; padding: 0.3rem 0; border-bottom: 1px solid transparent; }
+        nav a:hover { color: var(--text-primary); border-bottom-color: var(--gold); }
+        .page-container { max-width: 1000px; margin: 2rem auto; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-color); }
+        .page-header { text-align: center; border-bottom: 2px solid var(--border-gold); padding-bottom: 1.2rem; margin-bottom: 2rem; }
+        .page-header h1 { font-size: 2rem; font-weight: 300; letter-spacing: 4px; color: var(--text-primary); text-transform: uppercase; }
+        .notice { border-left: 3px solid var(--gold); background: rgba(201,168,76,0.05); padding: 0.8rem 1.2rem; margin-bottom: 1.5rem; }
+        .notice p { margin: 0; font-size: 0.9rem; color: var(--text-secondary); }
+        .nav-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .nav-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 0.4rem 1.2rem; font-size: 0.8rem; cursor: pointer; transition: 0.2s; letter-spacing: 0.5px; }
+        .nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .nav-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.06); }
+        .detail-block { display: none; padding: 1.2rem; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); margin-top: 1rem; }
+        .detail-block.active { display: block; }
+        .detail-header { display: flex; align-items: center; gap: 1rem; border-bottom: 1px solid var(--border-gold); padding-bottom: 0.6rem; margin-bottom: 1rem; }
+        .detail-header .icon { font-size: 2rem; color: var(--gold); }
+        .detail-header h2 { font-size: 1.3rem; font-weight: 500; letter-spacing: 1px; }
+        .detail-header .code { margin-left: auto; font-size: 0.7rem; color: var(--text-muted); border: 1px solid var(--border-color); padding: 0.1rem 0.8rem; }
+        .detail-content p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0.6rem; }
+        .detail-content h3 { color: var(--gold); font-size: 1.05rem; margin: 0.8rem 0 0.3rem; }
+        .danger-level { display: flex; align-items: center; gap: 0.8rem; margin-top: 0.8rem; font-size: 0.85rem; color: var(--text-secondary); }
+        .danger-dots { display: flex; gap: 4px; }
+        .danger-dot { width: 10px; height: 10px; border-radius: 0; background: var(--border-color); }
+        .danger-dot.active { background: var(--gold); }
+        .classes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .class-card { background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 1.2rem; text-align: center; cursor: pointer; transition: 0.2s; }
+        .class-card:hover { border-color: var(--gold); }
+        .class-card .icon { font-size: 2rem; color: var(--gold); margin-bottom: 0.3rem; }
+        .class-card h3 { font-size: 1rem; font-weight: 500; letter-spacing: 0.5px; }
+        .class-card .sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+        .class-card .danger { margin-top: 0.5rem; font-size: 0.7rem; color: var(--text-secondary); }
+        .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap: 0.6rem; margin-top: 0.6rem; }
+        .member { background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 0.4rem 0.6rem; text-align: center; font-size: 0.8rem; color: var(--text-secondary); }
+        .member .mcode { font-size: 0.7rem; color: var(--gold); font-weight: 500; }
+        footer {
+            background: var(--bg-secondary);
+            border-top: 2px solid var(--border-gold);
+            padding: 2rem 0 1.2rem;
+            margin-top: auto;
+        }
+        .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
+        .footer-col { flex: 1; min-width: 180px; }
+        .footer-col h3 { font-size: 1rem; font-weight: 500; letter-spacing: 1px; color: var(--text-primary); margin-bottom: 1rem; border-bottom: 1px solid var(--border-gold); padding-bottom: 0.4rem; display: inline-block; }
+        .footer-col p, .footer-col li { font-size: 0.8rem; color: var(--text-secondary); list-style: none; margin-bottom: 0.4rem; }
+        .footer-col a { color: var(--text-secondary); text-decoration: none; transition: 0.2s; }
+        .footer-col a:hover { color: var(--gold); }
+        .copyright { border-top: 1px solid var(--border-color); padding-top: 1.2rem; text-align: center; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 1px; }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; text-align: center; }
+            nav ul { justify-content: center; gap: 0.8rem; }
+            .page-container { padding: 1.2rem; margin: 1rem; }
+            .page-header h1 { font-size: 1.5rem; }
+            .footer-grid { flex-direction: column; text-align: center; }
+            .footer-col h3 { display: block; }
+            .detail-header { flex-wrap: wrap; }
+            .detail-header .code { margin-left: 0; }
+        }
+        @media (max-width: 480px) {
+            .logo-text { font-size: 1.1rem; }
+            .container { padding: 0 12px; }
+            .nav-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo"><div class="logo-icon">🐉</div><div class="logo-text"><span>Dragon</span>Corp</div></div>
+                <nav>
+                    <ul>
+                        <li><a href="01_main.html">Главная</a></li>
+                        <li><a href="02_charter.html">Устав</a></li>
+                        <li><a href="03_policy.html">Политика</a></li>
+                        <li><a href="04_classes.html">Классы</a></li>
+                        <li><a href="05_personnel.html">Персонал</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-container">
+            <div class="page-header">
+                <h1>Классификация объектов</h1>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">Единый Протокол Классификации (ЕПК-2025)</p>
+            </div>
+
+            <div class="notice"><p><strong>⚠️ Важная информация:</strong> В соответствии с Протоколом ЕПК-2025, D-класс формируется исключительно из добровольцев — граждан стран-участниц.</p></div>
+
+            <div class="nav-buttons" id="navButtons">
+                <button class="nav-btn active" data-target="structure">Структура</button>
+                <button class="nav-btn" data-target="d">Класс D</button>
+                <button class="nav-btn" data-target="anomalous">Аномальный</button>
+                <button class="nav-btn" data-target="keter">Таинственный</button>
+                <button class="nav-btn" data-target="euclid">Опасный</button>
+                <button class="nav-btn" data-target="neutralized">Безвредный</button>
+                <button class="nav-btn" data-target="all">Все классы</button>
+            </div>
+
+            <!-- Structure -->
+            <div class="detail-block active" id="structure">
+                <div class="detail-header"><span class="icon">🏛️</span><h2>Структура DragonCorp</h2><span class="code">ОК / ИК / НТС / ОШ</span></div>
+                <div class="detail-content">
+                    <p>Трёхуровневая система управления: Объединенное Командование (ОК), Исполнительный Комитет (ИК), Научно-Технический Совет (НТС), Оперативный Штаб (ОШ).</p>
+                    <h3>Члены НТС</h3>
+                    <div class="members-grid">
+                        <div class="member"><span class="mcode">НТС-1</span> Председатель (РФ)</div>
+                        <div class="member"><span class="mcode">НТС-2</span> Научный директор (Украина)</div>
+                        <div class="member"><span class="mcode">НТС-3</span> Оперативный директор (НАТО)</div>
+                        <div class="member"><span class="mcode">НТС-4</span> Директор безопасности (РФ)</div>
+                        <div class="member"><span class="mcode">НТС-5</span> Финансовый директор (НАТО)</div>
+                        <div class="member"><span class="mcode">НТС-6</span> Директор по кадрам (Украина)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D -->
+            <div class="detail-block" id="d">
+                <div class="detail-header"><span class="icon">🧪</span><h2>Класс D</h2><span class="code">D-Class</span></div>
+                <div class="detail-content">
+                    <p>Добровольцы из граждан стран-участниц, используемые в экспериментах с аномальными объектами.</p>
+                    <h3>Процедуры</h3>
+                    <p>Строгий отбор, медицинское обследование, добровольное согласие. Личность строго конфиденциальна.</p>
+                    <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><span class="danger-dot active"></span><span class="danger-dot active"></span><span class="danger-dot"></span><span class="danger-dot"></span><span class="danger-dot"></span></div></div>
+                </div>
+            </div>
+
+            <!-- Anomalous -->
+            <div class="detail-block" id="anomalous">
+                <div class="detail-header"><span class="icon">🔮</span><h2>Класс Аномальный</h2><span class="code">Anomalous - DC</span></div>
+                <div class="detail-content">
+                    <p>Объекты с необычными свойствами, не представляющие непосредственной угрозы.</p>
+                    <h3>Условия</h3>
+                    <p>Стандартные условия с периодическим мониторингом.</p>
+                    <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><span class="danger-dot active"></span><span class="danger-dot"></span><span class="danger-dot"></span><span class="danger-dot"></span><span class="danger-dot"></span></div></div>
+                </div>
+            </div>
+
+            <!-- Keter -->
+            <div class="detail-block" id="keter">
+                <div class="detail-header"><span class="icon">☠️</span><h2>Класс Таинственный</h2><span class="code">Keter - DC</span></div>
+                <div class="detail-content">
+                    <p>Объекты высшей угрозы для человечества. Требуют немедленного реагирования ОК.</p>
+                    <h3>Сдерживание</h3>
+                    <p>Максимально изолированные условия, многоуровневая безопасность. Доступ — только по решению ОК.</p>
+                    <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><span class="danger-dot active"></span><span class="danger-dot active"></span><span class="danger-dot active"></span><span class="danger-dot active"></span><span class="danger-dot active"></span></div></div>
+                </div>
+            </div>
+
+            <!-- Euclid -->
+            <div class="detail-block" id="euclid">
+                <div class="detail-header"><span class="icon">⚠️</span><h2>Класс Опасный</h2><span class="code">Euclid - DC</span></div>
+                <div class="detail-content">
+                    <p>Объекты с непредсказуемыми свойствами, требующие постоянного мониторинга.</p>
+                    <h3>Условия</h3>
+                    <p>Усиленные условия, круглосуточная охрана.</p>
+                    <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><span class="danger-dot active"></span><span class="danger-dot active"></span><span class="danger-dot active"></span><span class="danger-dot"></span><span class="danger-dot"></span></div></div>
+                </div>
+            </div>
+
+            <!-- Neutralized -->
+            <div class="detail-block" id="neutralized">
+                <div class="detail-header"><span class="icon">✅</span><h2>Класс Безвредный</h2><span class="code">Neutralized - DC</span></div>
+                <div class="detail-content">
+                    <p>Объекты, утратившие аномальные свойства или нейтрализованные.</p>
+                    <h3>Процедуры</h3>
+                    <p>Могут использоваться для исследований с минимальными ограничениями.</p>
+                    <div class="danger-level"><span>Уровень опасности:</span><div class="danger-dots"><span class="danger-dot"></span><span class="danger-dot"></span><span class="danger-dot"></span><span class="danger-dot"></span><span class="danger-dot"></span></div></div>
+                </div>
+            </div>
+
+            <!-- All classes -->
+            <div class="detail-block" id="all">
+                <div class="detail-header"><span class="icon">📊</span><h2>Все классы</h2><span class="code">Полный обзор</span></div>
+                <div class="classes-grid">
+                    <div class="class-card" data-target="d"><div class="icon">🧪</div><h3>Класс D</h3><div class="sub">D-Class</div><div class="danger">⚠️⚠️</div></div>
+                    <div class="class-card" data-target="euclid"><div class="icon">⚠️</div><h3>Опасный</h3><div class="sub">Euclid - DC</div><div class="danger">⚠️⚠️⚠️</div></div>
+                    <div class="class-card" data-target="keter"><div class="icon">☠️</div><h3>Таинственный</h3><div class="sub">Keter - DC</div><div class="danger">⚠️⚠️⚠️⚠️⚠️</div></div>
+                    <div class="class-card" data-target="anomalous"><div class="icon">🔮</div><h3>Аномальный</h3><div class="sub">Anomalous - DC</div><div class="danger">⚠️</div></div>
+                    <div class="class-card" data-target="neutralized"><div class="icon">✅</div><h3>Безвредный</h3><div class="sub">Neutralized - DC</div><div class="danger">○</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col"><h3>DragonCorp</h3><p>Международное бюро по контролю аномалий</p></div>
+                <div class="footer-col"><h3>Контакты</h3><p>📧 <a href="mailto:drakon.karol@yandex.ru">drakon.karol@yandex.ru</a></p><p style="color:var(--text-muted);">📞 НЕ ДОСТУПЕН</p><p style="color:var(--text-muted);">📍 Секретная локация</p></div>
+                <div class="footer-col"><h3>Ссылки</h3><p><a href="01_main.html">Главная</a></p><p><a href="02_charter.html">Устав</a></p><p><a href="03_policy.html">Политика</a></p><p><a href="04_classes.html">Классы</a></p><p><a href="05_personnel.html">Персонал</a></p></div>
+            </div>
+            <div class="copyright">© 2026 DragonCorp</div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.nav-btn');
+            const blocks = document.querySelectorAll('.detail-block');
+            const cards = document.querySelectorAll('.class-card');
+
+            function activate(target) {
+                blocks.forEach(b => b.classList.remove('active'));
+                const el = document.getElementById(target);
+                if (el) el.classList.add('active');
+                buttons.forEach(b => b.classList.remove('active'));
+                buttons.forEach(b => { if (b.dataset.target === target) b.classList.add('active'); });
+            }
+
+            buttons.forEach(b => {
+                b.addEventListener('click', function() {
+                    activate(this.dataset.target);
+                });
+            });
+
+            cards.forEach(c => {
+                c.addEventListener('click', function() {
+                    activate(this.dataset.target);
+                    // also highlight nav button
+                    buttons.forEach(b => b.classList.remove('active'));
+                    buttons.forEach(b => { if (b.dataset.target === this.dataset.target) b.classList.add('active'); });
+                });
+            });
+
+            // default: structure
+        });
+    </script>
+</body>
+</html>
