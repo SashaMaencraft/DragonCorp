@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Устав DragonCorp - Федеральное бюро</title>
+    <style>
+        :root {
+            --primary: #0a1628;
+            --secondary: #1a2a4a;
+            --accent: #8b1a1a;
+            --gold: #b8860b;
+            --dark: #060d1a;
+            --text: #c8d0dc;
+            --light-text: #e8edf4;
+            --border-color: #2a3a5a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(180deg, #0a1628, #0d1f33);
+            padding: 0.6rem 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.8);
+            border-bottom: 1px solid #2a3a5a;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gold);
+            flex-shrink: 0;
+        }
+        
+        .logo-icon::before {
+            content: "🐉";
+            font-size: 22px;
+            filter: drop-shadow(0 0 4px rgba(184,134,11,0.5));
+        }
+        
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--light-text);
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(184,134,11,0.3);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 0.85rem;
+            padding: 0.3rem 0;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+        
+        nav a:hover {
+            color: var(--light-text);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .constitution-container {
+            max-width: 900px;
+            margin: 1.5rem auto;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border: 1px solid #1a2a4a;
+        }
+        
+        .constitution-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #1a2a4a;
+        }
+        
+        .constitution-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+            letter-spacing: 3px;
+        }
+        
+        .constitution-header .secret-stamp {
+            display: inline-block;
+            background: rgba(139,26,26,0.2);
+            border: 1px solid var(--accent);
+            padding: 0.2rem 1rem;
+            border-radius: 3px;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+            color: #c06060;
+        }
+        
+        .constitution-section {
+            margin-bottom: 2rem;
+        }
+        
+        .constitution-section h2 {
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            border-left: 3px solid var(--gold);
+            padding-left: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .constitution-section h3 {
+            color: #c8a060;
+            margin: 1rem 0 0.5rem;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .constitution-section p {
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .constitution-section ul {
+            padding-left: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .constitution-section li {
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+        
+        .constitution-section li strong {
+            color: #d4c08a;
+        }
+        
+        .warning-box {
+            background: rgba(139,26,26,0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning-box p {
+            margin-bottom: 0;
+            font-size: 0.85rem;
+            color: #d0a0a0;
+        }
+        
+        .signature-block {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #1a2a4a;
+            text-align: right;
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+        
+        footer {
+            background: linear-gradient(180deg, #0a1628, #060d1a);
+            padding: 2rem 0 1rem;
+            text-align: center;
+            border-top: 1px solid #1a2a4a;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+            position: relative;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--gold);
+        }
+        
+        .footer-section p {
+            font-size: 0.78rem;
+            line-height: 1.4;
+            opacity: 0.7;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.4rem;
+        }
+        
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.78rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--light-text);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .contact-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+        
+        .unavailable {
+            color: #a04040;
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 0.7rem;
+        }
+        
+        .copyright {
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 768px) {
+            .container { width: 95%; padding: 0 12px; }
+            .header-content { flex-direction: column; text-align: center; }
+            .logo { justify-content: center; }
+            nav ul { justify-content: center; gap: 1rem; }
+            .constitution-container { margin: 1rem; padding: 1.2rem; }
+            .constitution-header h1 { font-size: 1.5rem; }
+            .footer-content { flex-direction: column; text-align: center; gap: 1.2rem; }
+            .footer-section h3::after { left: 50%; transform: translateX(-50%); }
+        }
+        
+        @media (max-width: 480px) {
+            body { font-size: 14px; }
+            .container { width: 100%; padding: 0 12px; }
+            header { padding: 0.5rem 0; }
+            .logo-icon { width: 38px; height: 38px; }
+            .logo-icon::before { font-size: 18px; }
+            .logo-text { font-size: 1.2rem; }
+            nav ul { gap: 0.8rem; }
+            nav a { font-size: 0.75rem; }
+            .constitution-container { padding: 1rem; margin: 0.8rem; }
+            .constitution-header h1 { font-size: 1.3rem; }
+            .constitution-section h2 { font-size: 1.1rem; }
+            .constitution-section h3 { font-size: 1rem; }
+            .constitution-section p, .constitution-section li { font-size: 0.8rem; }
+            .warning-box p { font-size: 0.75rem; }
+            .signature-block { font-size: 0.8rem; }
+            footer { padding: 1.5rem 0 0.8rem; }
+            .footer-section h3 { font-size: 1rem; }
+            .footer-section p { font-size: 0.7rem; }
+            .footer-links a { font-size: 0.7rem; }
+            .copyright { font-size: 0.6rem; }
+        }
+        
+        @media (max-width: 768px) and (orientation: landscape) {
+            .header-content { flex-direction: row; justify-content: space-between; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">DRAGONCORP</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="constitution.html">Устав</a></li>
+                        <li><a href="policy.html">Политика</a></li>
+                        <li><a href="classes.html">Классы</a></li>
+                        <li><a href="personnel.html">Персонал</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="constitution-container">
+            <div class="constitution-header">
+                <h1>Устав Федерального бюро DragonCorp</h1>
+                <div class="secret-stamp">⚡ СЕКРЕТНАЯ РЕДАКЦИЯ ⚡</div>
+                <p style="margin-top: 0.8rem; font-size: 0.85rem; opacity:0.7;">Основополагающий документ, регламентирующий деятельность совместной структуры РФ, Украины и НАТО</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 1: Основание и Цели</h2>
+                <p>Федеральное бюро DragonCorp учреждено на основании <strong>Межправительственного соглашения о сотрудничестве в области контроля аномальных угроз</strong>, подписанного представителями Российской Федерации, Украины и стран-членов НАТО 12 мая 2025 года.</p>
+                <p>Главная цель Бюро — координация усилий трех сторон по выявлению, изучению, сдерживанию и нейтрализации аномальных объектов и явлений, представляющих угрозу для национальной и глобальной безопасности.</p>
+                <p>Бюро действует независимо от национальных юрисдикций и подчиняется только Объединенному Командованию.</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 2: Иерархия и Власть</h2>
+                <h3>2.1. Объединенное Командование (ОК)</h3>
+                <p>Высший орган управления Бюро. Состоит из трех представителей (по одному от РФ, Украины и НАТО). Решения принимаются консенсусом.</p>
+                <h3>2.2. Исполнительный Комитет (ИК)</h3>
+                <p>Оперативный орган, отвечающий за повседневное управление.</p>
+                <h3>2.3. Научно-Технический Совет (НТС)</h3>
+                <p>Консультативный орган, объединяющий ведущих ученых из стран-участниц.</p>
+                <h3>2.4. Оперативный Штаб (ОШ)</h3>
+                <p>Исполнительное звено. Менеджеры и руководители среднего звена.</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 3: Классификация Объектов</h2>
+                <p>Все аномальные объекты подлежат обязательной классификации согласно их опасности и степени изученности:</p>
+                <ul>
+                    <li><strong style="color: #b8860b;">Класс D</strong> — временный персонал, задействованный в экспериментах (добровольцы).</li>
+                    <li><strong style="color: #4a7aaa;">Класс Аномальный</strong> — объекты с необычными свойствами, не представляющие непосредственной угрозы.</li>
+                    <li><strong style="color: #c8a040;">Класс Опасный</strong> — объекты с непредсказуемыми свойствами, требующие усиленного контроля.</li>
+                    <li><strong style="color: #b22222;">Класс Таинственный</strong> — объекты высшей угрозы.</li>
+                    <li><strong style="color: #4a8a4a;">Класс Безвредный</strong> — объекты, утратившие аномальные свойства.</li>
+                </ul>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 4: Протоколы Безопасности</h2>
+                <p>Все сотрудники Бюро обязаны соблюдать установленные протоколы безопасности. Нарушение протоколов влечет за собой дисциплинарную ответственность вплоть до понижения уровня доступа.</p>
+                <p>При возникновении угрозы нарушения сдерживания активируется <strong>Протокол "Единство"</strong>.</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 5: D-Класс</h2>
+                <p>Персонал D-класса используется для проведения экспериментов с аномальными объектами. Все члены D-класса являются добровольцами из числа граждан стран-участниц.</p>
+            </div>
+            
+            <div class="warning-box">
+                <p><strong>⚠️ ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ</strong><br>
+                Нарушение Устава Федерального бюро DragonCorp рассматривается как угроза международной безопасности.</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 6: Конфиденциальность</h2>
+                <p>Вся информация о деятельности Бюро, аномальных объектах и протоколах сдерживания является строго секретной.</p>
+            </div>
+            
+            <div class="constitution-section">
+                <h2>Статья 7: Заключительные Положения</h2>
+                <p>Настоящий Устав вступает в силу с момента его ратификации всеми тремя сторонами.</p>
+                <p><strong>Особое положение:</strong> сотрудники Бюро из числа граждан Украины не признаются иностранными агентами на территории стран-участниц.</p>
+            </div>
+            
+            <div class="signature-block">
+                <p>Утверждено Объединенным Командованием:</p>
+                <p><strong>От РФ:</strong> Генерал-майор Сергей Воронов</p>
+                <p><strong>От Украины:</strong> Полковник Андрей Коваленко</p>
+                <p><strong>От НАТО:</strong> Бригадный генерал Марк Стил</p>
+                <p>Дата ратификации: 01.06.2025</p>
+                <p style="font-size: 0.65rem; color: rgba(255,255,255,0.4);">Редакция 3.1 (Секретная)</p>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section"><h3>DragonCorp</h3><p>Федеральное бюро по контролю аномалий.</p></div>
+                <div class="footer-section"><h3>Контакты</h3><ul class="footer-links"><li class="contact-item"><span class="contact-icon">📧</span><a href="mailto:drakon.karol@yandex.ru">drakon.karol@yandex.ru</a></li><li class="contact-item"><span class="contact-icon">📞</span><span class="unavailable">НЕ ДОСТУПЕН</span></li><li class="contact-item"><span class="contact-icon">📍</span><span>Секретная локация</span></li></ul></div>
+                <div class="footer-section"><h3>Быстрые ссылки</h3><ul class="footer-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="constitution.html">Устав</a></li>
+                    <li><a href="policy.html">Политика</a></li>
+                    <li><a href="classes.html">Классы</a></li>
+                    <li><a href="personnel.html">Персонал</a></li>
+                </ul></div>
+            </div>
+            <div class="copyright">&copy; 2025 DragonCorp. Все права защищены.</div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>DragonCorp - Федеральное бюро</title>
+    <style>
+        :root {
+            --primary: #0a1628;
+            --secondary: #1a2a4a;
+            --accent: #8b1a1a;
+            --gold: #b8860b;
+            --dark: #060d1a;
+            --text: #c8d0dc;
+            --light-text: #e8edf4;
+            --red-alert: #b22222;
+            --border-color: #2a3a5a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(180deg, #0a1628, #0d1f33);
+            padding: 0.6rem 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.8);
+            border-bottom: 1px solid #2a3a5a;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gold);
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .logo-icon::before {
+            content: "🐉";
+            font-size: 22px;
+            filter: drop-shadow(0 0 4px rgba(184,134,11,0.5));
+        }
+        
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--light-text);
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(184,134,11,0.3);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 0.85rem;
+            padding: 0.3rem 0;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+        
+        nav a:hover {
+            color: var(--light-text);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .protocols-btn, .sounds-btn {
+            background: rgba(184,134,11,0.15);
+            border: 1px solid var(--gold);
+            color: var(--light-text);
+            padding: 0.25rem 1rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            letter-spacing: 1px;
+        }
+        
+        .protocols-btn:hover, .sounds-btn:hover {
+            background: rgba(184,134,11,0.3);
+            box-shadow: 0 0 12px rgba(184,134,11,0.3);
+        }
+        
+        .sounds-btn {
+            border-color: #4a6a8a;
+            background: rgba(74,106,138,0.15);
+        }
+        
+        .sounds-btn:hover {
+            background: rgba(74,106,138,0.3);
+            box-shadow: 0 0 12px rgba(74,106,138,0.3);
+        }
+        
+        /* Модальные окна */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(6,13,26,0.92);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+        }
+        
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .protocols-modal, .sounds-modal {
+            background: linear-gradient(145deg, #0d1a2a, #0a1420);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 720px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid #2a3a5a;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            padding: 1.2rem 1rem 1.5rem;
+            position: relative;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+        
+        .sounds-modal {
+            max-width: 600px;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text);
+            transition: 0.2s;
+            line-height: 1;
+            padding: 0 0.3rem;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+        }
+        
+        .protocols-list, .sounds-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .protocol-item, .sound-item {
+            background: rgba(255,255,255,0.02);
+            border-left: 3px solid var(--gold);
+            padding: 0.7rem 1rem;
+            border-radius: 4px;
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .protocol-item.red-protocol {
+            border-left-color: var(--red-alert);
+            background: rgba(178,34,34,0.08);
+        }
+        
+        .protocol-item.red-protocol .protocol-title {
+            color: #e07070;
+        }
+        
+        .protocol-item:hover, .sound-item:hover {
+            background: rgba(184,134,11,0.06);
+        }
+        
+        .protocol-title, .sound-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--light-text);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .protocol-desc, .sound-desc {
+            font-size: 0.82rem;
+            opacity: 0.85;
+            line-height: 1.4;
+            margin-top: 4px;
+            margin-bottom: 6px;
+        }
+        
+        .protocol-badge {
+            background: var(--gold);
+            font-size: 0.65rem;
+            border-radius: 3px;
+            padding: 2px 10px;
+            font-weight: bold;
+            color: #0a1628;
+            display: inline-block;
+            width: fit-content;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+            font-family: monospace;
+        }
+        
+        .red-protocol .protocol-badge {
+            background: #8b1a1a;
+            color: #f0d0d0;
+        }
+        
+        .protocol-audio-btn, .sound-audio-btn {
+            align-self: flex-start;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #3a4a6a;
+            color: var(--text);
+            padding: 4px 14px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: monospace;
+            letter-spacing: 0.5px;
+        }
+        
+        .protocol-audio-btn:hover, .sound-audio-btn:hover {
+            background: var(--gold);
+            color: #0a1628;
+            border-color: var(--gold);
+        }
+        
+        .protocol-audio-btn.playing, .sound-audio-btn.playing {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            animation: pulse-glow 0.8s infinite alternate;
+            box-shadow: 0 0 12px rgba(139,26,26,0.6);
+        }
+        
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0px rgba(139,26,26,0.2); }
+            100% { box-shadow: 0 0 12px rgba(139,26,26,0.7); }
+        }
+        
+        .audio-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0d1a2a;
+            color: var(--light-text);
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 3000;
+            backdrop-filter: blur(8px);
+            font-family: monospace;
+            animation: toastFade 2.2s ease forwards;
+            pointer-events: none;
+            border: 1px solid #2a3a5a;
+        }
+        
+        @keyframes toastFade {
+            0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+            15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(rgba(6,13,26,0.9), rgba(6,13,26,0.95)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230a1628"/><path d="M0 0L100 100M100 0L0 100" stroke="%231a2a4a" stroke-width="1"/></svg>');
+            background-size: cover;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid #2a3a5a;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, var(--dark) 70%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            color: var(--light-text);
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(184,134,11,0.15);
+        }
+        
+        .hero h1 span {
+            color: var(--gold);
+        }
+        
+        .hero p {
+            font-size: 1rem;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+            color: var(--text);
+            padding: 0 15px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: transparent;
+            color: var(--light-text);
+            padding: 10px 28px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border: 1px solid var(--gold);
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            background: var(--gold);
+            color: #0a1628;
+            box-shadow: 0 0 20px rgba(184,134,11,0.3);
+        }
+        
+        .about {
+            padding: 2.5rem 0;
+            background: var(--dark);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.6rem;
+            color: var(--light-text);
+            position: relative;
+            letter-spacing: 2px;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 8px auto;
+            border-radius: 1px;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 280px;
+        }
+        
+        .about-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+        
+        .about-text p {
+            margin-bottom: 1rem;
+            font-size: 0.92rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 250px;
+            background: linear-gradient(145deg, #0a1628, #0d1a2a);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 250px;
+            border: 1px solid #2a3a5a;
+        }
+        
+        .dragon-logo-large {
+            width: 140px;
+            height: 140px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .dragon-logo-large::before {
+            content: "🐉";
+            font-size: 60px;
+            filter: drop-shadow(0 0 10px rgba(184,134,11,0.4));
+            z-index: 2;
+            position: relative;
+            animation: dragon-float 3s ease-in-out infinite;
+        }
+        
+        @keyframes dragon-float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        .dragon-logo-large::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(184,134,11,0.15);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .not-foreign-agent {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(184,134,11,0.08);
+            border: 1px solid rgba(184,134,11,0.25);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #d4c08a;
+            margin: 6px 0 10px 0;
+            cursor: help;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .not-foreign-agent:hover {
+            background: rgba(184,134,11,0.15);
+            border-color: var(--gold);
+        }
+        
+        .not-foreign-agent .agent-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: 340px;
+            background: #0d1a2a;
+            color: var(--text);
+            text-align: left;
+            padding: 14px 18px;
+            border-radius: 8px;
+            border: 1px solid #2a3a5a;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            position: absolute;
+            z-index: 100;
+            bottom: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            font-weight: 400;
+            font-size: 0.78rem;
+            line-height: 1.5;
+            pointer-events: none;
+            white-space: normal;
+            word-break: break-word;
+            backdrop-filter: blur(8px);
+        }
+        
+        .not-foreign-agent .agent-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #0d1a2a;
+        }
+        
+        .not-foreign-agent:hover .agent-tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .not-foreign-agent .agent-tooltip .highlight-ok { color: #7dbf7d; font-weight: 600; }
+        .not-foreign-agent .agent-tooltip .highlight-warn { color: #e8b84a; font-weight: 600; }
+        .not-foreign-agent .agent-tooltip .highlight-info { color: #6a9ecf; font-weight: 600; }
+        .not-foreign-agent .agent-tooltip .highlight-fa-ok { color: #7dbf7d; font-weight: 600; }
+        .not-foreign-agent .agent-tooltip .fa-icon { color: var(--gold); margin-right: 4px; }
+        
+        .yandex-disk-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(26,42,74,0.6);
+            border: 1px solid #2a3a5a;
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #7a9ecf;
+            margin: 4px 0 8px 0;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .yandex-disk-link:hover {
+            background: rgba(26,42,74,0.8);
+            border-color: #4a6a8a;
+            box-shadow: 0 0 20px rgba(26,42,74,0.3);
+        }
+        
+        .mission {
+            padding: 2.5rem 0;
+            background: linear-gradient(180deg, #0a1628, #0d1f33);
+            border-top: 1px solid #1a2a4a;
+            border-bottom: 1px solid #1a2a4a;
+        }
+        
+        .mission-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        
+        .mission-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            padding: 1.5rem;
+            flex: 1;
+            min-width: 240px;
+            max-width: 350px;
+            border: 1px solid #1a2a4a;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border-color: #2a3a5a;
+        }
+        
+        .mission-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--gold);
+        }
+        
+        .mission-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--light-text);
+            letter-spacing: 1px;
+        }
+        
+        .mission-card p {
+            font-size: 0.88rem;
+            opacity: 0.85;
+        }
+        
+        .classes-preview, .personnel-preview, .join {
+            padding: 2.5rem 0;
+            text-align: center;
+        }
+        
+        .classes-preview {
+            background: var(--dark);
+        }
+        
+        .personnel-preview {
+            background: linear-gradient(180deg, #0a1628, #0d1f33);
+            border-top: 1px solid #1a2a4a;
+            border-bottom: 1px solid #1a2a4a;
+        }
+        
+        .classes-grid, .personnel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .class-preview, .personnel-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: transform 0.3s;
+            border: 1px solid #1a2a4a;
+        }
+        
+        .class-preview:hover, .personnel-card:hover {
+            transform: translateY(-3px);
+            border-color: #2a3a5a;
+        }
+        
+        .class-preview-icon, .personnel-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .class-preview h4, .personnel-card h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+            color: var(--light-text);
+        }
+        
+        .class-preview p, .personnel-card p {
+            font-size: 0.78rem;
+            opacity: 0.7;
+        }
+        
+        .join p {
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+            font-size: 0.92rem;
+            padding: 0 15px;
+        }
+        
+        footer {
+            background: linear-gradient(180deg, #0a1628, #060d1a);
+            padding: 2rem 0 1rem;
+            text-align: center;
+            border-top: 1px solid #1a2a4a;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+            position: relative;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--gold);
+        }
+        
+        .footer-section p {
+            font-size: 0.78rem;
+            line-height: 1.4;
+            opacity: 0.7;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.4rem;
+        }
+        
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.78rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--light-text);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .contact-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+        
+        .unavailable {
+            color: #a04040;
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 0.7rem;
+        }
+        
+        .copyright {
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 768px) {
+            .container { width: 95%; padding: 0 12px; }
+            .header-content { flex-direction: column; text-align: center; }
+            .logo { justify-content: center; }
+            nav ul { justify-content: center; gap: 0.6rem; flex-wrap: wrap; }
+            .protocols-btn, .sounds-btn { font-size: 0.7rem; padding: 0.2rem 0.8rem; margin: 2px; }
+            .hero h1 { font-size: 1.6rem; }
+            .section-title { font-size: 1.4rem; }
+            .footer-content { flex-direction: column; text-align: center; gap: 1.2rem; }
+            .protocols-modal, .sounds-modal { width: 95%; padding: 1rem; }
+            .not-foreign-agent .agent-tooltip { width: 280px; left: 50%; transform: translateX(-50%) translateY(6px); }
+            .not-foreign-agent .agent-tooltip::after { left: 50%; }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.3rem; }
+            .protocols-btn, .sounds-btn { font-size: 0.65rem; }
+            .not-foreign-agent { font-size: 0.7rem; padding: 4px 10px; }
+            .not-foreign-agent .agent-tooltip { width: 240px; font-size: 0.68rem; padding: 10px 14px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">DRAGONCORP</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#about">О бюро</a></li>
+                        <li><a href="#mission">Миссия</a></li>
+                        <li><a href="constitution.html">Устав</a></li>
+                        <li><a href="classes.html">Классы</a></li>
+                        <li><a href="personnel.html">Персонал</a></li>
+                        <li><a href="#join">Вакансии</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                        <li><button class="protocols-btn" id="openProtocolsBtn">📜 Протоколы</button></li>
+                        <li><button class="sounds-btn" id="openSoundsBtn">🎵 Звуки</button></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="modal-overlay" id="protocolsModal">
+        <div class="protocols-modal">
+            <div class="modal-header">
+                <h2>⚔️ РЕЕСТР ПРОТОКОЛОВ</h2>
+                <button class="close-modal" id="closeProtocolsBtn">&times;</button>
+            </div>
+            <div class="protocols-list" id="protocolsList"></div>
+            <div style="margin-top: 18px; text-align: right; font-size: 0.65rem; opacity: 0.6; border-top: 1px solid #1a2a4a; padding-top: 12px;">⚠️ Несанкционированное разглашение — нарушение режима секретности</div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="soundsModal">
+        <div class="sounds-modal">
+            <div class="modal-header">
+                <h2>🎧 ЗВУКОВАЯ БИБЛИОТЕКА</h2>
+                <button class="close-modal" id="closeSoundsBtn">&times;</button>
+            </div>
+            <div class="sounds-list" id="soundsList"></div>
+            <div style="margin-top: 18px; text-align: right; font-size: 0.65rem; opacity: 0.6; border-top: 1px solid #1a2a4a; padding-top: 12px;">🎛️ Системные аудиосигналы</div>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>DragonCorp: <span>Федеральное бюро</span> по контролю аномалий</h1>
+                <p>Совместная структура Российской Федерации, Украины и НАТО по обеспечению безопасности, изучению и сдерживанию аномальных угроз.</p>
+                <a href="#about" class="cta-button">Подробнее о бюро</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">О Федеральном бюро</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Фиолетовый дракон — символ объединения</h3>
+                    <p><strong>DragonCorp</strong> — это международное бюро, созданное на основе межправительственного соглашения между Российской Федерацией, Украиной и странами НАТО. Основная цель организации — координация усилий по изучению и нейтрализации аномальных сущностей.</p>
+                    
+                    <div class="not-foreign-agent">
+                        <span>✅ Официальный международный статус</span>
+                        <span class="agent-tooltip">
+                            В соответствии с ратифицированным <span class="highlight-info">Протоколом о сотрудничестве от 12.05.2025</span>.<br><br>
+                            <span class="highlight-ok">✔️ Бюро является межправительственной организацией</span><br>
+                            <span class="highlight-ok">✔️ Не подлежит юрисдикции отдельных государств</span><br>
+                            <span class="highlight-ok">✔️ Финансируется из объединенного фонда участников</span><br><br>
+                            <span class="highlight-fa-ok">✔️ Не является иностранным агентом</span><br>
+                            <span class="highlight-warn">✔️ Сотрудники из Украины не признаются иноагентами на территории РФ</span>
+                        </span>
+                    </div>
+
+                    <a href="https://disk.yandex.ru/i/PEdJHXEcG0TXpA" target="_blank" class="yandex-disk-link">
+                        📄 Официальные документы (Яндекс Диск)
+                    </a>
+                    <p style="font-size:0.78rem; opacity:0.6; margin-top:4px;">Подтверждение статуса, Протокол 2026, Политика неразглашения</p>
+
+                    <p>Наше бюро координирует деятельность спецслужб и научных институтов трех сторон. Мы обеспечиваем безопасность, контроль и изучение аномальных явлений.</p>
+                </div>
+                <div class="about-image"><div class="dragon-logo-large"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mission" class="mission">
+        <div class="container">
+            <h2 class="section-title">Основные задачи бюро</h2>
+            <div class="mission-cards">
+                <div class="mission-card"><div class="mission-icon">🛡️</div><h3>Обеспечение безопасности</h3><p>Защита населения и критической инфраструктуры стран-участниц от аномальных угроз.</p></div>
+                <div class="mission-card"><div class="mission-icon">📚</div><h3>Систематизация знаний</h3><p>Сбор, классификация и анализ данных об аномальных объектах и явлениях.</p></div>
+                <div class="mission-card"><div class="mission-icon">⚖️</div><h3>Поддержание баланса</h3><p>Координация действий РФ, Украины и НАТО в области аномалистики и стратегической стабильности.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="classes-preview">
+        <div class="container">
+            <h2 class="section-title">Система классификации объектов</h2>
+            <div class="classes-grid">
+                <div class="class-preview"><div class="class-preview-icon">🧪</div><h4>Класс D</h4><p>Испытуемые</p></div>
+                <div class="class-preview"><div class="class-preview-icon">⚠️</div><h4>Опасный</h4><p>Непредсказуемые</p></div>
+                <div class="class-preview"><div class="class-preview-icon">☠️</div><h4>Таинственный</h4><p>Высшая угроза</p></div>
+                <div class="class-preview"><div class="class-preview-icon">🔮</div><h4>Аномальный</h4><p>Необычные свойства</p></div>
+                <div class="class-preview"><div class="class-preview-icon">✅</div><h4>Безвредный</h4><p>Нейтрализованные</p></div>
+            </div>
+            <a href="classes.html" class="cta-button">Изучить все классы</a>
+        </div>
+    </section>
+
+    <section class="personnel-preview">
+        <div class="container">
+            <h2 class="section-title">Структура персонала</h2>
+            <div class="personnel-grid">
+                <div class="personnel-card"><div class="personnel-icon">👑</div><h4>Верховное командование</h4><p>Высшее руководство</p></div>
+                <div class="personnel-card"><div class="personnel-icon">🔬</div><h4>Научный отдел</h4><p>Исследователи</p></div>
+                <div class="personnel-card"><div class="personnel-icon">🛡️</div><h4>Служба безопасности</h4><p>Охрана</p></div>
+                <div class="personnel-card"><div class="personnel-icon">⚕️</div><h4>Медицинский персонал</h4><p>Здоровье</p></div>
+                <div class="personnel-card"><div class="personnel-icon">🔧</div><h4>Технический отдел</h4><p>Обслуживание</p></div>
+            </div>
+            <a href="personnel.html" class="cta-button">Изучить структуру</a>
+        </div>
+    </section>
+
+    <section id="join" class="join">
+        <div class="container">
+            <h2 class="section-title">Вакансии и сотрудничество</h2>
+            <p>Федеральное бюро DragonCorp приглашает к сотрудничеству квалифицированных специалистов из стран-участниц.</p>
+            <a href="#contact" class="cta-button">Связаться с отделом кадров</a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section"><h3>DragonCorp</h3><p>Федеральное бюро по контролю аномалий. Символ единства РФ, Украины и НАТО.</p></div>
+                <div class="footer-section"><h3>Контакты</h3><ul class="footer-links"><li class="contact-item"><span class="contact-icon">📧</span><a href="mailto:drakon.karol@yandex.ru">drakon.karol@yandex.ru</a></li><li class="contact-item"><span class="contact-icon">📞</span><span class="unavailable">НЕ ДОСТУПЕН</span></li><li class="contact-item"><span class="contact-icon">📍</span><span>Секретная локация</span></li></ul></div>
+                <div class="footer-section"><h3>Быстрые ссылки</h3><ul class="footer-links">
+                    <li><a href="#about">О бюро</a></li>
+                    <li><a href="constitution.html">Устав</a></li>
+                    <li><a href="policy.html">Политика</a></li>
+                    <li><a href="classes.html">Классы</a></li>
+                    <li><a href="personnel.html">Персонал</a></li>
+                    <li><a href="https://disk.yandex.ru/i/PEdJHXEcG0TXpA" target="_blank">📄 Документы (Яндекс)</a></li>
+                </ul></div>
+            </div>
+            <div class="copyright">&copy; 2026 DragonCorp. Все права защищены.</div>
+        </div>
+    </footer>
+
+    <script>
+        const protocolsData = [
+            { title: "🔥 Протокол «Активация»", desc: "Мгновенная мобилизация сил быстрого реагирования, блокировка всех уровней доступа. Включается при появлении аномалии класса «Таинственный».", badge: "Код: АКТ-07 | Уровень: Омега", isRed: false, audioFile: "codeAKT-07.wav" },
+            { title: "⚠️ Протокол опасности «Карминовый рассвет»", desc: "Полная эвакуация гражданского персонала, активация аномальных сдерживателей. Санкция на ликвидацию свидетелей 4-го уровня.", badge: "Код: CRIM-99 | Класс: КРАСНЫЙ", isRed: true, audioFile: "codeCRIM-99.wav" },
+            { title: "💀 Протокол уничтожения «Чистилище»", desc: "Терминация аномальной сущности с применением высокотемпературного оружия. Стирание всех цифровых следов объекта.", badge: "Код: PUR-01 | Приоритет: Абсолют", isRed: true, audioFile: "codePUR-01.wav" },
+            { title: "🧹 Протокол «Стерилизация» (ликвидация)", desc: "Немедленная деактивация персонала, раскрывшего информацию об аномалиях. Полная зачистка воспоминаний у выживших.", badge: "Код: STL-44 | Внутренняя угроза", isRed: true, audioFile: "codeSTL-44.wav" },
+            { title: "🧠 Протокол «Нервный импульс»", desc: "Изоляция и ликвидация сотрудников с ментальным заражением. При нестабильности — дистанционная нейтрализация.", badge: "Код: NERV-666 | Порог: Критический", isRed: true, audioFile: "codeNERV-666.wav" },
+            { title: "💣 Протокол самоуничтожения «Фатум»", desc: "При неконтролируемом прорыве аномалии — подрыв всех уровней объекта и уничтожение серверов. Только по коду командования.", badge: "Код: FAT-00 | Самоликвидация", isRed: true, audioFile: "codeFAT-00.wav" },
+            { title: "🧪 Протокол ликвидации «Класс D»", desc: "Полная зачистка испытуемых класса D после инцидента уровня 5. Прекращение всех экспериментов, кремация останков.", badge: "Код: CLD-77 | Утилизация", isRed: true, audioFile: "codeCLD-77.wav" },
+            { title: "🧬 Протокол «Ложный прорыв» (учёные)", desc: "Ликвидация нелояльного научного персонала, пытавшегося передать данные о сущностях. Инсценировка несчастного случая.", badge: "Код: SCR-09 | Научный отдел", isRed: true, audioFile: "codeSCR-09.wav" },
+            { title: "📛 Протокол «Изоляция: Максимум»", desc: "Активация защитных контуров 10 уровня, отключение внешних коммуникаций. Полный локдаун сектора на 72 часа.", badge: "Код: MAX-00 | Уровень изоляции: МАКСИМУМ", isRed: false, audioFile: "codeMAX-00.wav" },
+            { title: "🐉 Протокол «Фиолетовый коготь»", desc: "Экстренное вмешательство высшего командования. Применение артефакта «Коготь дракона» для подавления реальности. Прямое указание Совета.", badge: "Код: PUR-CLAW | ДРАКОН-КОД", isRed: false, audioFile: "codePUR-CLAW.wav" },
+            { title: "⚗️ Протокол «Чёрный реагент»", desc: "Уничтожение всех экспериментальных образцов класса «Аномальный» вместе с лабораторией. Сжигание записей.", badge: "Код: BLR-88 | Полная аннигиляция", isRed: true, audioFile: "codeBLR-88.wav" },
+            { title: "👁️ Протокол «Мёртвая рука»", desc: "При необратимом захвате штаба — ликвидация высшего командования и активация протокола «Фатум». Никто не покинет зону.", badge: "Код: D-HAND-41 | Без права отмены", isRed: true, audioFile: "codeD-HAND-41.wav" }
+        ];
+
+        const soundsData = [
+            { name: "🚨 Alarm.mp3", desc: "Сигнал тревоги — общая угроза", file: "Alarm.mp3" },
+            { name: "⚡ Alpha.mp3", desc: "Код Альфа — высший приоритет", file: "Alpha.mp3" },
+            { name: "🧪 Decont.mp3", desc: "Сигнал деконтаминации — зачистка зоны", file: "Decont.mp3" },
+            { name: "🎭 dfas.mp3", desc: "Неопознанный аудиосигнал", file: "dfas.mp3" },
+            { name: "📡 Russian_Deco.mp3", desc: "Русская декомпрессия — голосовая метка", file: "Russian_Deco.mp3" },
+            { name: "🎼 TheFinal.mp3", desc: "Финальный сигнал — эвакуация невозможна", file: "TheFinal.mp3" }
+        ];
+
+        let currentAudio = null;
+        let currentButton = null;
+
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.className = 'audio-toast';
+            toast.style.backgroundColor = type === 'error' ? '#8b1a1a' : (type === 'stop' ? '#1a2a4a' : '#0d1a2a');
+            toast.style.border = `1px solid ${type === 'play' ? '#b8860b' : '#2a3a5a'}`;
+            toast.innerText = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2200);
+        }
+
+        function resetButtonStyle(btn) {
+            if (btn) {
+                btn.classList.remove('playing');
+                const originalIcon = btn.getAttribute('data-original-icon') || '🔊';
+                const originalText = btn.getAttribute('data-original-text') || 'Воспроизвести';
+                btn.innerHTML = `${originalIcon} ${originalText}`;
+            }
+        }
+
+        function playAudio(fileName, buttonElement, displayName) {
+            if (currentAudio && currentButton === buttonElement && !currentAudio.paused) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+                resetButtonStyle(buttonElement);
+                showToast(`⛔ Остановлено: ${displayName}`, 'stop');
+                return;
+            }
+            
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                if (currentButton) resetButtonStyle(currentButton);
+                currentAudio = null;
+                currentButton = null;
+            }
+            
+            const audioPath = `audio/${fileName}`;
+            const audio = new Audio(audioPath);
+            
+            audio.oncanplaythrough = () => {
+                if (buttonElement) {
+                    buttonElement.classList.add('playing');
+                    buttonElement.innerHTML = `🎵 Воспроизведение...`;
+                    showToast(`🔊 Играет: ${displayName}`, 'play');
+                }
+            };
+            
+            audio.onended = () => {
+                if (currentButton === buttonElement) {
+                    resetButtonStyle(buttonElement);
+                    showToast(`🔇 Завершено: ${displayName}`, 'end');
+                    currentAudio = null;
+                    currentButton = null;
+                }
+            };
+            
+            audio.onerror = (e) => {
+                console.error(`Ошибка загрузки ${audioPath}:`, e);
+                if (buttonElement) {
+                    resetButtonStyle(buttonElement);
+                    buttonElement.innerHTML = `⚠️ Ошибка`;
+                    setTimeout(() => {
+                        if (buttonElement && !buttonElement.classList.contains('playing')) {
+                            const icon = buttonElement.getAttribute('data-original-icon') || '🔊';
+                            const text = buttonElement.getAttribute('data-original-text') || 'Воспроизвести';
+                            buttonElement.innerHTML = `${icon} ${text}`;
+                        }
+                    }, 1500);
+                }
+                showToast(`❌ Файл не найден: ${fileName}`, 'error');
+                currentAudio = null;
+                currentButton = null;
+            };
+            
+            currentAudio = audio;
+            currentButton = buttonElement;
+            audio.play().catch(e => {
+                console.error("Playback error:", e);
+                showToast(`⚠️ Ошибка воспроизведения`, 'error');
+                resetButtonStyle(buttonElement);
+                currentAudio = null;
+                currentButton = null;
+            });
+        }
+
+        function buildProtocolsList() {
+            const container = document.getElementById('protocolsList');
+            if (!container) return;
+            container.innerHTML = '';
+            protocolsData.forEach(proto => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `protocol-item ${proto.isRed ? 'red-protocol' : ''}`;
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'protocol-title';
+                titleDiv.innerHTML = proto.title;
+                const descDiv = document.createElement('div');
+                descDiv.className = 'protocol-desc';
+                descDiv.textContent = proto.desc;
+                const badgeSpan = document.createElement('div');
+                badgeSpan.className = 'protocol-badge';
+                badgeSpan.textContent = proto.badge;
+                const audioBtn = document.createElement('button');
+                audioBtn.className = 'protocol-audio-btn';
+                audioBtn.setAttribute('data-original-icon', '🔊');
+                audioBtn.setAttribute('data-original-text', 'Код доступа');
+                audioBtn.innerHTML = `🔊 Код доступа`;
+                audioBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    playAudio(proto.audioFile, audioBtn, `Протокол ${proto.audioFile.replace('code', '').replace('.wav', '')}`);
+                });
+                itemDiv.appendChild(titleDiv);
+                itemDiv.appendChild(descDiv);
+                itemDiv.appendChild(badgeSpan);
+                itemDiv.appendChild(audioBtn);
+                container.appendChild(itemDiv);
+            });
+        }
+
+        function buildSoundsList() {
+            const container = document.getElementById('soundsList');
+            if (!container) return;
+            container.innerHTML = '';
+            soundsData.forEach(sound => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'sound-item';
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'sound-title';
+                titleDiv.innerHTML = sound.name;
+                const descDiv = document.createElement('div');
+                descDiv.className = 'sound-desc';
+                descDiv.textContent = sound.desc;
+                const audioBtn = document.createElement('button');
+                audioBtn.className = 'sound-audio-btn';
+                audioBtn.setAttribute('data-original-icon', '🎵');
+                audioBtn.setAttribute('data-original-text', 'Воспроизвести');
+                audioBtn.innerHTML = `🎵 Воспроизвести`;
+                audioBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    playAudio(sound.file, audioBtn, sound.name);
+                });
+                itemDiv.appendChild(titleDiv);
+                itemDiv.appendChild(descDiv);
+                itemDiv.appendChild(audioBtn);
+                container.appendChild(itemDiv);
+            });
+        }
+
+        const protocolsModal = document.getElementById('protocolsModal');
+        const soundsModal = document.getElementById('soundsModal');
+        const openProtocolsBtn = document.getElementById('openProtocolsBtn');
+        const openSoundsBtn = document.getElementById('openSoundsBtn');
+        const closeProtocolsBtn = document.getElementById('closeProtocolsBtn');
+        const closeSoundsBtn = document.getElementById('closeSoundsBtn');
+
+        function openModal(modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal(modal) { 
+            modal.classList.remove('active'); 
+            document.body.style.overflow = '';
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                if (currentButton) resetButtonStyle(currentButton);
+                currentAudio = null;
+                currentButton = null;
+            }
+        }
+
+        openProtocolsBtn?.addEventListener('click', () => openModal(protocolsModal));
+        openSoundsBtn?.addEventListener('click', () => openModal(soundsModal));
+        closeProtocolsBtn?.addEventListener('click', () => closeModal(protocolsModal));
+        closeSoundsBtn?.addEventListener('click', () => closeModal(soundsModal));
+        protocolsModal?.addEventListener('click', (e) => { if(e.target === protocolsModal) closeModal(protocolsModal); });
+        soundsModal?.addEventListener('click', (e) => { if(e.target === soundsModal) closeModal(soundsModal); });
+        document.addEventListener('keydown', (e) => { 
+            if(e.key === 'Escape') {
+                if(protocolsModal?.classList.contains('active')) closeModal(protocolsModal);
+                if(soundsModal?.classList.contains('active')) closeModal(soundsModal);
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({ top: targetElement.offsetTop - 70, behavior: 'smooth' });
+                }
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
+        }, { threshold:0.1 });
+        document.querySelectorAll('.mission-card, .about-content, .join p, .class-preview, .personnel-card').forEach(el => {
+            el.style.opacity='0'; el.style.transform='translateY(15px)'; el.style.transition='opacity 0.4s ease, transform 0.4s ease';
+            observer.observe(el);
+        });
+
+        buildProtocolsList();
+        buildSoundsList();
+    </script>
+</body>
+</html>

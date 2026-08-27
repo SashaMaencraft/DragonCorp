@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Политика - DragonCorp</title>
+    <style>
+        :root {
+            --primary: #0a1628;
+            --secondary: #1a2a4a;
+            --accent: #8b1a1a;
+            --gold: #b8860b;
+            --dark: #060d1a;
+            --text: #c8d0dc;
+            --light-text: #e8edf4;
+            --border-color: #2a3a5a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(180deg, #0a1628, #0d1f33);
+            padding: 0.6rem 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.8);
+            border-bottom: 1px solid #2a3a5a;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gold);
+            flex-shrink: 0;
+        }
+        
+        .logo-icon::before {
+            content: "🐉";
+            font-size: 22px;
+            filter: drop-shadow(0 0 4px rgba(184,134,11,0.5));
+        }
+        
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--light-text);
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(184,134,11,0.3);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 0.85rem;
+            padding: 0.3rem 0;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+        
+        nav a:hover {
+            color: var(--light-text);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .policy-container {
+            max-width: 900px;
+            margin: 1.5rem auto;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border: 1px solid #1a2a4a;
+        }
+        
+        .policy-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #1a2a4a;
+        }
+        
+        .policy-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--light-text);
+            letter-spacing: 3px;
+        }
+        
+        .policy-header p {
+            font-size: 0.9rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.7;
+        }
+        
+        .policy-section {
+            margin-bottom: 2rem;
+        }
+        
+        .policy-section h2 {
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            border-left: 3px solid var(--gold);
+            padding-left: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .policy-section h3 {
+            color: #c8a060;
+            margin: 1rem 0 0.5rem;
+            font-size: 1.05rem;
+        }
+        
+        .policy-section p {
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .policy-section ul {
+            padding-left: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .policy-section li {
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+        
+        .policy-section li strong {
+            color: #d4c08a;
+        }
+        
+        .warning-box {
+            background: rgba(139,26,26,0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning-box p {
+            margin-bottom: 0;
+            font-size: 0.85rem;
+            color: #d0a0a0;
+        }
+        
+        footer {
+            background: linear-gradient(180deg, #0a1628, #060d1a);
+            padding: 2rem 0 1rem;
+            text-align: center;
+            border-top: 1px solid #1a2a4a;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+            position: relative;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--gold);
+        }
+        
+        .footer-section p {
+            font-size: 0.78rem;
+            line-height: 1.4;
+            opacity: 0.7;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.4rem;
+        }
+        
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.78rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--light-text);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .contact-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+        
+        .unavailable {
+            color: #a04040;
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 0.7rem;
+        }
+        
+        .copyright {
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 768px) {
+            .container { width: 95%; padding: 0 12px; }
+            .header-content { flex-direction: column; text-align: center; }
+            .logo { justify-content: center; }
+            nav ul { justify-content: center; gap: 1rem; }
+            .policy-container { margin: 1rem; padding: 1.2rem; }
+            .policy-header h1 { font-size: 1.5rem; }
+            .footer-content { flex-direction: column; text-align: center; gap: 1.2rem; }
+            .footer-section h3::after { left: 50%; transform: translateX(-50%); }
+        }
+        
+        @media (max-width: 480px) {
+            body { font-size: 14px; }
+            .container { width: 100%; padding: 0 12px; }
+            header { padding: 0.5rem 0; }
+            .logo-icon { width: 38px; height: 38px; }
+            .logo-icon::before { font-size: 18px; }
+            .logo-text { font-size: 1.2rem; }
+            nav ul { gap: 0.8rem; }
+            nav a { font-size: 0.75rem; }
+            .policy-container { padding: 1rem; margin: 0.8rem; }
+            .policy-header h1 { font-size: 1.3rem; }
+            .policy-section h2 { font-size: 1.1rem; }
+            .policy-section h3 { font-size: 1rem; }
+            .policy-section p, .policy-section li { font-size: 0.8rem; }
+            .warning-box p { font-size: 0.75rem; }
+            footer { padding: 1.5rem 0 0.8rem; }
+            .footer-section h3 { font-size: 1rem; }
+            .footer-section p { font-size: 0.7rem; }
+            .footer-links a { font-size: 0.7rem; }
+            .copyright { font-size: 0.6rem; }
+        }
+        
+        @media (max-width: 768px) and (orientation: landscape) {
+            .header-content { flex-direction: row; justify-content: space-between; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">DRAGONCORP</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="constitution.html">Устав</a></li>
+                        <li><a href="policy.html">Политика</a></li>
+                        <li><a href="classes.html">Классы</a></li>
+                        <li><a href="personnel.html">Персонал</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="policy-container">
+            <div class="policy-header">
+                <h1>Политика конфиденциальности</h1>
+                <p>Федеральное бюро DragonCorp гарантирует защиту персональных данных в соответствии с законодательством РФ, Украины и стран НАТО.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>1. Общие положения</h2>
+                <p>Настоящая Политика конфиденциальности регулирует порядок обработки и защиты персональных данных сотрудников и добровольцев Федерального бюро DragonCorp.</p>
+                <p>Политика разработана в соответствии с:</p>
+                <ul>
+                    <li>Федеральным законом РФ № 152-ФЗ «О персональных данных»;</li>
+                    <li>Законом Украины «О защите персональных данных»;</li>
+                    <li>Общим регламентом по защите данных (GDPR) стран НАТО;</li>
+                    <li>Межправительственным Протоколом о сотрудничестве от 12.05.2025.</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>2. Собираемые данные</h2>
+                <p>Бюро собирает и обрабатывает следующие категории персональных данных:</p>
+                <ul>
+                    <li><strong>Общие сведения:</strong> ФИО, дата и место рождения, гражданство.</li>
+                    <li><strong>Контактные данные:</strong> адрес электронной почты, контактные телефоны.</li>
+                    <li><strong>Профессиональные данные:</strong> образование, квалификация, опыт работы.</li>
+                    <li><strong>Биометрические данные:</strong> (при необходимости) для обеспечения безопасности.</li>
+                    <li><strong>Медицинские данные:</strong> (в рамках добровольного согласия) для участия в экспериментах.</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>3. Цели обработки данных</h2>
+                <p>Персональные данные обрабатываются исключительно в следующих целях:</p>
+                <ul>
+                    <li>Обеспечение безопасности сотрудников и объектов Бюро.</li>
+                    <li>Проведение научных исследований и экспериментов (с добровольного согласия).</li>
+                    <li>Ведение кадрового делопроизводства.</li>
+                    <li>Выполнение обязательств по межправительственным соглашениям.</li>
+                    <li>Предотвращение угроз национальной и глобальной безопасности.</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>4. Условия обработки и хранения</h2>
+                <p>Обработка персональных данных осуществляется с соблюдением следующих принципов:</p>
+                <ul>
+                    <li>Законность и справедливость.</li>
+                    <li>Ограничение обработки достижением конкретных целей.</li>
+                    <li>Точность и актуальность данных.</li>
+                    <li>Хранение данных в форме, позволяющей идентифицировать субъекта, не дольше, чем этого требуют цели обработки.</li>
+                </ul>
+                <p>Данные хранятся в защищенных центрах обработки данных на территории стран-участниц.</p>
+            </div>
+            
+            <div class="warning-box">
+                <p><strong>⚠️ ВАЖНОЕ УВЕДОМЛЕНИЕ</strong><br>
+                В соответствии с Протоколом 2026 года, сотрудники Бюро из числа граждан Украины не признаются иностранными агентами на территории стран-участниц.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>5. Права субъектов данных</h2>
+                <p>Субъекты персональных данных имеют право:</p>
+                <ul>
+                    <li>На получение информации об обработке своих данных.</li>
+                    <li>На уточнение, блокирование или уничтожение данных.</li>
+                    <li>На отзыв согласия на обработку данных.</li>
+                    <li>На обращение к уполномоченным органам стран-участниц.</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>6. Передача данных третьим лицам</h2>
+                <p>Передача персональных данных третьим лицам допускается только в случаях, предусмотренных межправительственными соглашениями и законодательством стран-участниц.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>7. Заключительные положения</h2>
+                <p>Настоящая Политика вступает в силу с момента ее утверждения Объединенным Командованием.</p>
+                <p>Все сотрудники Бюро обязаны ознакомиться с настоящей Политикой и соблюдать ее положения.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section"><h3>DragonCorp</h3><p>Федеральное бюро по контролю аномалий.</p></div>
+                <div class="footer-section"><h3>Контакты</h3><ul class="footer-links"><li class="contact-item"><span class="contact-icon">📧</span><a href="mailto:drakon.karol@yandex.ru">drakon.karol@yandex.ru</a></li><li class="contact-item"><span class="contact-icon">📞</span><span class="unavailable">НЕ ДОСТУПЕН</span></li><li class="contact-item"><span class="contact-icon">📍</span><span>Секретная локация</span></li></ul></div>
+                <div class="footer-section"><h3>Быстрые ссылки</h3><ul class="footer-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="constitution.html">Устав</a></li>
+                    <li><a href="policy.html">Политика</a></li>
+                    <li><a href="classes.html">Классы</a></li>
+                    <li><a href="personnel.html">Персонал</a></li>
+                </ul></div>
+            </div>
+            <div class="copyright">&copy; 2025 DragonCorp. Все права защищены.</div>
+        </div>
+    </footer>
+</body>
+</html>
