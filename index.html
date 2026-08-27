@@ -2,910 +2,495 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>DragonCorp - Международное бюро по контролю аномалий</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главное управление · DragonCorp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ===== FEDERAL STYLE ===== */
         :root {
-            --primary: #4a1e8c;
-            --secondary: #7b3fe4;
-            --accent: #c13584;
-            --dark: #1a0b2e;
-            --light: #f5f5f5;
-            --text: #e0e0e0;
-            --red-alert: #e03a3a;
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111624;
+            --bg-card: #141b2b;
+            --border-color: #2a3a5a;
+            --border-gold: #8a7a3a;
+            --text-primary: #e8edf5;
+            --text-secondary: #b0baca;
+            --text-muted: #6a7a8a;
+            --gold: #c9a84c;
+            --gold-dim: #8a7a3a;
+            --accent-blue: #3a6a9a;
+            --accent-red: #8a2a2a;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
         }
-        
+
         body {
-            background-color: var(--dark);
-            color: var(--text);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.5;
-            overflow-x: hidden;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-        
+
         .container {
-            width: 90%;
-            max-width: 1200px;
+            width: 92%;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 20px;
         }
-        
-        /* Header Styles */
+
+        /* HEADER */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
-            padding: 0.8rem 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(180deg, #0a0e1a 0%, #141b2b 100%);
+            padding: 0.6rem 0;
+            border-bottom: 2px solid var(--border-gold);
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.8);
         }
-        
+
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 0.8rem;
+            gap: 0.6rem;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
-        
+
         .logo-icon {
-            width: 45px;
-            height: 45px;
-            background: var(--dark);
+            width: 48px;
+            height: 48px;
+            border: 2px solid var(--gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(123, 63, 228, 0.5);
-            border: 2px solid var(--secondary);
+            font-size: 26px;
+            color: var(--gold);
+            background: rgba(201, 168, 76, 0.08);
             flex-shrink: 0;
         }
-        
-        .logo-icon::before {
-            content: "🐉";
-            font-size: 22px;
-            color: var(--secondary);
-            filter: drop-shadow(0 0 5px rgba(123, 63, 228, 0.7));
-            z-index: 2;
-            position: relative;
-            animation: dragon-pulse 2s infinite alternate;
-        }
-        
-        @keyframes dragon-pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
-        }
-        
-        .logo-icon::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 30%, rgba(123, 63, 228, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 70%, rgba(193, 53, 132, 0.3) 0%, transparent 50%),
-                        conic-gradient(from 0deg, var(--accent), var(--secondary), var(--accent));
-            border-radius: 50%;
-            animation: rotate 8s linear infinite;
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
+
         .logo-text {
             font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            text-shadow: 0 0 10px rgba(123, 63, 228, 0.7);
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
-        
+        .logo-text span {
+            color: var(--gold);
+        }
+
         nav ul {
             display: flex;
             list-style: none;
             gap: 1.2rem;
             flex-wrap: wrap;
-            align-items: center;
-            justify-content: flex-end;
         }
-        
+
         nav a {
-            color: var(--text);
+            color: var(--text-secondary);
             text-decoration: none;
+            font-size: 0.85rem;
             font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
             padding: 0.3rem 0;
-            display: inline-block;
+            border-bottom: 1px solid transparent;
         }
-        
         nav a:hover {
-            color: white;
+            color: var(--text-primary);
+            border-bottom-color: var(--gold);
         }
-        
-        nav a::after {
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--border-gold);
+            color: var(--gold);
+            padding: 0.2rem 1.2rem;
+            border-radius: 2px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .nav-btn:hover {
+            background: rgba(201, 168, 76, 0.1);
+            border-color: var(--gold);
+        }
+
+        /* HERO */
+        .hero {
+            padding: 4rem 0 3rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            background: radial-gradient(ellipse at 50% 0%, #141b2b 0%, #0a0e1a 70%);
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+        }
+        .hero h1 span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .hero p {
+            max-width: 800px;
+            margin: 1.2rem auto 2rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            letter-spacing: 0.3px;
+        }
+        .hero .badge {
+            display: inline-block;
+            border: 1px solid var(--border-gold);
+            padding: 0.3rem 1.8rem;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.7rem 2.8rem;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: 0.25s;
+            cursor: pointer;
+        }
+        .cta-btn:hover {
+            background: var(--gold);
+            color: #0a0e1a;
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.6rem;
+        }
+        .section-title::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 0;
+            width: 60px;
             height: 2px;
-            background: var(--accent);
-            transition: width 0.3s;
+            background: var(--gold);
         }
-        
-        nav a:hover::after {
-            width: 100%;
+        .section-title.centered {
+            text-align: center;
         }
-
-        /* Кнопки меню */
-        .protocols-btn, .sounds-btn {
-            background: rgba(193, 53, 132, 0.2);
-            border: 1px solid var(--accent);
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            backdrop-filter: blur(4px);
-            margin-left: 0.2rem;
+        .section-title.centered::after {
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .protocols-btn:hover, .sounds-btn:hover {
-            background: var(--accent);
-            box-shadow: 0 0 10px rgba(193, 53, 132, 0.5);
-            transform: scale(0.98);
+        /* ABOUT */
+        .about-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            align-items: center;
         }
-        
-        .sounds-btn {
-            border-color: var(--secondary);
-            background: rgba(123, 63, 228, 0.2);
+        .about-text {
+            flex: 2;
+            min-width: 280px;
         }
-        
-        .sounds-btn:hover {
-            background: var(--secondary);
-            border-color: var(--secondary);
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
         }
-        
-        /* Модальные окна */
+        .about-emblem {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            font-size: 5rem;
+            color: var(--gold);
+            opacity: 0.5;
+            border: 1px solid var(--border-gold);
+            padding: 1.5rem;
+            border-radius: 4px;
+            background: rgba(201,168,76,0.03);
+        }
+
+        /* CARDS */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1.8rem 1.2rem;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .card:hover {
+            border-color: var(--border-gold);
+        }
+        .card .icon {
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 0.4rem;
+        }
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* CLASSES PREVIEW */
+        .class-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .class-preview-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1rem 0.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        .class-preview-item .code {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 2px solid var(--border-gold);
+            padding: 2.5rem 0 1.2rem;
+            margin-top: auto;
+        }
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 180px;
+        }
+        .footer-col h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-gold);
+            padding-bottom: 0.4rem;
+            display: inline-block;
+        }
+        .footer-col p, .footer-col li {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            list-style: none;
+            margin-bottom: 0.4rem;
+        }
+        .footer-col a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .footer-col a:hover {
+            color: var(--gold);
+        }
+        .copyright {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* MODAL (federal style) */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.88);
-            backdrop-filter: blur(8px);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(4px);
             z-index: 2000;
             display: flex;
             align-items: center;
             justify-content: center;
             visibility: hidden;
             opacity: 0;
-            transition: visibility 0.2s, opacity 0.2s;
+            transition: 0.2s;
         }
-        
         .modal-overlay.active {
             visibility: visible;
             opacity: 1;
         }
-        
-        .protocols-modal, .sounds-modal {
-            background: linear-gradient(145deg, #1f0e3a, #110625);
-            border-radius: 28px;
-            width: 90%;
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-gold);
+            width: 92%;
             max-width: 720px;
             max-height: 85vh;
             overflow-y: auto;
-            border: 1px solid rgba(123, 63, 228, 0.6);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(193, 53, 132, 0.2);
-            padding: 1.2rem 1rem 1.5rem;
+            padding: 1.8rem 1.5rem;
             position: relative;
-            animation: modalFadeIn 0.25s ease-out;
         }
-        
-        .sounds-modal {
-            max-width: 600px;
-        }
-        
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.96);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 0.7rem;
+            border-bottom: 1px solid var(--border-gold);
+            padding-bottom: 0.6rem;
             margin-bottom: 1.2rem;
-            flex-wrap: wrap;
-            gap: 10px;
         }
-        
         .modal-header h2 {
-            font-size: 1.7rem;
-            background: linear-gradient(120deg, #c13584, #7b3fe4);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 1px;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
         }
-        
-        .close-modal {
+        .modal-close {
             background: none;
             border: none;
-            font-size: 2rem;
+            font-size: 1.8rem;
+            color: var(--text-secondary);
             cursor: pointer;
-            color: var(--text);
             transition: 0.2s;
-            line-height: 1;
-            padding: 0 0.3rem;
         }
-        
-        .close-modal:hover {
-            color: var(--accent);
-            transform: scale(1.1);
+        .modal-close:hover {
+            color: var(--gold);
         }
-        
-        .protocols-list, .sounds-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.1rem;
-        }
-        
         .protocol-item, .sound-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 4px solid var(--secondary);
-            padding: 0.7rem 1rem;
-            border-radius: 16px;
-            transition: 0.2s;
-            position: relative;
-            display: flex;
-            flex-direction: column;
+            border-left: 2px solid var(--border-gold);
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.8rem;
+            background: rgba(255,255,255,0.02);
         }
-        
-        .protocol-item.red-protocol {
-            border-left-color: var(--red-alert);
-            background: rgba(224, 58, 58, 0.08);
+        .protocol-item.red {
+            border-left-color: var(--accent-red);
         }
-        
-        .protocol-item.red-protocol .protocol-title {
-            color: #ff8a8a;
+        .protocol-item .title {
+            font-weight: 500;
+            color: var(--text-primary);
         }
-        
-        .protocol-item:hover, .sound-item:hover {
-            background: rgba(123, 63, 228, 0.15);
-            transform: translateX(3px);
-        }
-        
-        .protocol-title, .sound-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #d9b4ff;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .protocol-desc, .sound-desc {
+        .protocol-item .desc {
             font-size: 0.85rem;
-            opacity: 0.9;
-            line-height: 1.4;
-            margin-top: 4px;
-            margin-bottom: 8px;
+            color: var(--text-secondary);
+            margin: 4px 0;
         }
-        
-        .protocol-badge {
-            background: var(--accent);
+        .protocol-item .badge {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+        .protocol-item .audio-btn, .sound-item .audio-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.2rem 1rem;
             font-size: 0.7rem;
-            border-radius: 40px;
-            padding: 3px 12px;
-            font-weight: bold;
-            color: white;
-            display: inline-block;
-            width: fit-content;
-            margin-top: 4px;
-            letter-spacing: 0.5px;
-            font-family: monospace;
-        }
-        
-        .red-protocol .protocol-badge {
-            background: #b12a2a;
-            box-shadow: 0 0 4px #ff5e5e;
-        }
-        
-        /* Кнопки аудио */
-        .protocol-audio-btn, .sound-audio-btn {
-            align-self: flex-start;
-            margin-top: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(123, 63, 228, 0.5);
-            color: var(--text);
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(4px);
-            font-family: monospace;
+            margin-top: 6px;
+            transition: 0.2s;
+            letter-spacing: 0.5px;
         }
-        
-        .protocol-audio-btn:hover, .sound-audio-btn:hover {
-            background: var(--secondary);
-            color: white;
-            border-color: var(--secondary);
-            transform: scale(0.98);
-            box-shadow: 0 0 8px rgba(123, 63, 228, 0.6);
+        .protocol-item .audio-btn:hover, .sound-item .audio-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
         }
-        
-        .protocol-audio-btn.playing, .sound-audio-btn.playing {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-            animation: pulse-glow 0.8s infinite alternate;
-            box-shadow: 0 0 12px rgba(193, 53, 132, 0.8);
+        .protocol-item .audio-btn.playing, .sound-item .audio-btn.playing {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(201,168,76,0.1);
         }
-        
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 0px rgba(193, 53, 132, 0.4); }
-            100% { box-shadow: 0 0 12px rgba(193, 53, 132, 0.9); }
-        }
-        
-        /* Toast уведомления */
-        .audio-toast {
+
+        .toast {
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: #1f0e3a;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 40px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-gold);
+            padding: 0.6rem 1.8rem;
             font-size: 0.8rem;
-            font-weight: bold;
+            color: var(--text-primary);
             z-index: 3000;
-            backdrop-filter: blur(8px);
-            font-family: monospace;
-            animation: toastFade 2.2s ease forwards;
+            animation: toastFade 2.4s ease forwards;
             pointer-events: none;
+            letter-spacing: 0.5px;
         }
-        
         @keyframes toastFade {
             0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
             15% { opacity: 1; transform: translateX(-50%) translateY(0); }
             85% { opacity: 1; transform: translateX(-50%) translateY(0); }
             100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
         }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(26, 11, 46, 0.85), rgba(26, 11, 46, 0.95)), 
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234a1e8c"/><path d="M0 0L100 100M100 0L0 100" stroke="%237b3fe4" stroke-width="1"/></svg>');
-            background-size: cover;
-            padding: 4rem 0;
-            text-align: center;
-            position: relative;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, transparent 0%, var(--dark) 70%);
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hero h1 {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #7b3fe4, #c13584);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 15px rgba(123, 63, 228, 0.3);
-        }
-        
-        .hero p {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto 1.5rem;
-            color: var(--text);
-            padding: 0 15px;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(to right, var(--secondary), var(--accent));
-            color: white;
-            padding: 10px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(123, 63, 228, 0.4);
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(123, 63, 228, 0.6);
-        }
-        
-        /* About Section */
-        .about {
-            padding: 3rem 0;
-            background: var(--dark);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 1.8rem;
-            color: white;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(to right, var(--secondary), var(--accent));
-            margin: 8px auto;
-            border-radius: 2px;
-        }
-        
-        .about-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            align-items: center;
-        }
-        
-        .about-text {
-            flex: 1;
-            min-width: 280px;
-        }
-        
-        .about-text h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
-        
-        .about-text p {
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-        
-        .about-image {
-            flex: 1;
-            min-width: 250px;
-            background: linear-gradient(145deg, var(--primary), var(--dark));
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 250px;
-        }
-        
-        .dragon-logo-large {
-            width: 140px;
-            height: 140px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .dragon-logo-large::before {
-            content: "🐉";
-            font-size: 65px;
-            color: var(--secondary);
-            filter: drop-shadow(0 0 10px rgba(123, 63, 228, 0.7));
-            z-index: 2;
-            position: relative;
-            animation: dragon-float 3s ease-in-out infinite;
-        }
-        
-        @keyframes dragon-float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(3deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
-        
-        .dragon-logo-large::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 30%, rgba(123, 63, 228, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 70%, rgba(193, 53, 132, 0.3) 0%, transparent 50%),
-                        conic-gradient(from 0deg, var(--accent), var(--secondary), var(--accent));
-            border-radius: 50%;
-            animation: rotate 8s linear infinite;
-            box-shadow: 0 0 25px rgba(123, 63, 228, 0.5);
-        }
 
-        /* Стиль для бейджа "Международный статус" */
-        .not-foreign-agent {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(123, 63, 228, 0.15);
-            border: 1px solid rgba(123, 63, 228, 0.3);
-            padding: 8px 14px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #d9b4ff;
-            margin: 8px 0 12px 0;
-            cursor: help;
-            position: relative;
-            transition: all 0.2s ease;
-        }
-
-        .not-foreign-agent:hover {
-            background: rgba(123, 63, 228, 0.25);
-            border-color: var(--secondary);
-            box-shadow: 0 0 15px rgba(123, 63, 228, 0.2);
-        }
-
-        .not-foreign-agent i {
-            color: #4ade80;
-            font-size: 1.1rem;
-        }
-
-        .not-foreign-agent .agent-tooltip {
-            visibility: hidden;
-            opacity: 0;
-            width: 340px;
-            background: #1f0e3a;
-            color: var(--text);
-            text-align: left;
-            padding: 14px 18px;
-            border-radius: 16px;
-            border: 1px solid rgba(123, 63, 228, 0.5);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            position: absolute;
-            z-index: 100;
-            bottom: calc(100% + 14px);
-            left: 50%;
-            transform: translateX(-50%) translateY(6px);
-            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-            font-weight: 400;
-            font-size: 0.8rem;
-            line-height: 1.5;
-            pointer-events: none;
-            white-space: normal;
-            word-break: break-word;
-            backdrop-filter: blur(8px);
-        }
-
-        .not-foreign-agent .agent-tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 6px solid transparent;
-            border-top-color: #1f0e3a;
-        }
-
-        .not-foreign-agent:hover .agent-tooltip {
-            visibility: visible;
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .not-foreign-agent .agent-tooltip .highlight-ok {
-            color: #4ade80;
-            font-weight: 600;
-        }
-
-        .not-foreign-agent .agent-tooltip .highlight-warn {
-            color: #fbbf24;
-            font-weight: 600;
-        }
-
-        .not-foreign-agent .agent-tooltip .highlight-info {
-            color: #60a5fa;
-            font-weight: 600;
-        }
-
-        .not-foreign-agent .agent-tooltip .fa-icon {
-            color: #fbbf24;
-            margin-right: 4px;
-        }
-        
-        /* Ссылка на Яндекс Диск (кнопка-бейдж) */
-        .yandex-disk-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(30, 150, 255, 0.15);
-            border: 1px solid rgba(30, 150, 255, 0.4);
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #7ac7ff;
-            margin: 4px 0 8px 0;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .yandex-disk-link:hover {
-            background: rgba(30, 150, 255, 0.25);
-            border-color: #1e96ff;
-            box-shadow: 0 0 20px rgba(30, 150, 255, 0.2);
-            transform: translateY(-1px);
-        }
-
-        .yandex-disk-link i {
-            font-size: 1.1rem;
-        }
-
-        /* Mission Section */
-        .mission {
-            padding: 3rem 0;
-            background: linear-gradient(135deg, var(--primary), var(--dark));
-        }
-        
-        .mission-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
-        }
-        
-        .mission-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 1.5rem;
-            flex: 1;
-            min-width: 240px;
-            max-width: 350px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(123, 63, 228, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .mission-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .mission-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
-        
-        .mission-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            color: white;
-        }
-        
-        .mission-card p {
-            font-size: 0.9rem;
-        }
-        
-        /* Classes Preview Section */
-        .classes-preview, .personnel-preview, .join {
-            padding: 3rem 0;
-            text-align: center;
-        }
-        
-        .classes-preview {
-            background: var(--dark);
-        }
-        
-        .personnel-preview {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
-        }
-        
-        .classes-grid, .personnel-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .class-preview, .personnel-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 1rem;
-            transition: transform 0.3s;
-            border: 1px solid rgba(123, 63, 228, 0.2);
-        }
-        
-        .class-preview:hover, .personnel-card:hover {
-            transform: translateY(-3px);
-        }
-        
-        .class-preview-icon, .personnel-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .class-preview h4, .personnel-card h4 {
-            font-size: 1rem;
-            margin-bottom: 0.3rem;
-            color: white;
-        }
-        
-        .class-preview p, .personnel-card p {
-            font-size: 0.8rem;
-        }
-        
-        .join p {
-            max-width: 800px;
-            margin: 0 auto 1.5rem;
-            font-size: 0.95rem;
-            padding: 0 15px;
-        }
-        
-        /* Footer */
-        footer {
-            background: linear-gradient(to right, var(--primary), var(--dark));
-            padding: 2rem 0 1rem;
-            text-align: center;
-            margin-top: auto;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-section {
-            flex: 1;
-            min-width: 200px;
-        }
-        
-        .footer-section h3 {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            color: white;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 35px;
-            height: 2px;
-            background: var(--accent);
-        }
-        
-        .footer-section p {
-            font-size: 0.8rem;
-            line-height: 1.4;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .footer-links a {
-            color: var(--text);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.8rem;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .contact-icon {
-            width: 20px;
-            text-align: center;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-        
-        .unavailable {
-            color: #ff6b6b;
-            font-style: italic;
-            opacity: 0.8;
-            font-size: 0.75rem;
-        }
-        
-        .copyright {
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
-        /* Адаптив */
+        /* responsive */
         @media (max-width: 768px) {
-            .container { width: 95%; padding: 0 12px; }
             .header-content { flex-direction: column; text-align: center; }
-            .logo { justify-content: center; }
-            nav ul { justify-content: center; gap: 0.6rem; flex-wrap: wrap; }
-            .protocols-btn, .sounds-btn { font-size: 0.75rem; padding: 0.2rem 0.8rem; margin: 2px; }
+            nav ul { justify-content: center; gap: 0.8rem; }
             .hero h1 { font-size: 1.8rem; }
-            .section-title { font-size: 1.6rem; }
-            .footer-content { flex-direction: column; text-align: center; gap: 1.2rem; }
-            .protocols-modal, .sounds-modal { width: 95%; padding: 1rem; }
-            .not-foreign-agent .agent-tooltip { width: 280px; left: 50%; transform: translateX(-50%) translateY(6px); }
-            .not-foreign-agent .agent-tooltip::after { left: 50%; }
+            .section-title { font-size: 1.3rem; }
+            .about-grid { flex-direction: column; }
+            .footer-grid { flex-direction: column; text-align: center; }
+            .footer-col h3 { display: block; }
         }
-        
         @media (max-width: 480px) {
-            .hero h1 { font-size: 1.5rem; }
-            .protocols-btn, .sounds-btn { font-size: 0.7rem; }
-            .not-foreign-agent { font-size: 0.75rem; padding: 6px 12px; }
-            .not-foreign-agent .agent-tooltip { width: 240px; font-size: 0.7rem; padding: 10px 14px; }
+            .hero h1 { font-size: 1.4rem; }
+            .logo-text { font-size: 1.1rem; }
+            .container { padding: 0 12px; }
         }
     </style>
 </head>
@@ -914,399 +499,168 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <div class="logo-icon"></div>
-                    <div class="logo-text">DragonCorp</div>
+                    <div class="logo-icon">🐉</div>
+                    <div class="logo-text"><span>Dragon</span>Corp</div>
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="#about">О бюро</a></li>
-                        <li><a href="#mission">Миссия</a></li>
-                        <li><a href="constitution.html">Устав</a></li>
-                        <li><a href="classes.html">Классы</a></li>
-                        <li><a href="personnel.html">Персонал</a></li>
-                        <li><a href="#join">Вакансии</a></li>
-                        <li><a href="#contact">Контакты</a></li>
-                        <li><button class="protocols-btn" id="openProtocolsBtn">📜 Протоколы</button></li>
-                        <li><button class="sounds-btn" id="openSoundsBtn">🎵 Звуки</button></li>
+                        <li><a href="01_main.html">Главная</a></li>
+                        <li><a href="02_charter.html">Устав</a></li>
+                        <li><a href="03_policy.html">Политика</a></li>
+                        <li><a href="04_classes.html">Классы</a></li>
+                        <li><a href="05_personnel.html">Персонал</a></li>
+                        <li><button class="nav-btn" id="openProtocolsBtn">Протоколы</button></li>
+                        <li><button class="nav-btn" id="openSoundsBtn">Звуки</button></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- Модальное окно ПРОТОКОЛОВ -->
-    <div class="modal-overlay" id="protocolsModal">
-        <div class="protocols-modal">
-            <div class="modal-header">
-                <h2>⚔️ РЕЕСТР ПРОТОКОЛОВ БЮРО</h2>
-                <button class="close-modal" id="closeProtocolsBtn">&times;</button>
-            </div>
-            <div class="protocols-list" id="protocolsList"></div>
-            <div style="margin-top: 18px; text-align: right; font-size: 0.7rem; opacity: 0.7; border-top: 1px solid #3a2a55; padding-top: 12px;">⚠️ Несанкционированное разглашение карается «Протоколом Стерилизация».</div>
-        </div>
-    </div>
+    <!-- MODALS -->
+    <div class="modal-overlay" id="protocolsModal"><div class="modal"><div class="modal-header"><h2>Реестр протоколов</h2><button class="modal-close" id="closeProtocolsBtn">&times;</button></div><div id="protocolsList"></div><div style="margin-top:1rem;font-size:0.65rem;color:var(--text-muted);border-top:1px solid var(--border-color);padding-top:0.8rem;">Гриф «Совместно секретно»</div></div></div>
+    <div class="modal-overlay" id="soundsModal"><div class="modal"><div class="modal-header"><h2>Звуковая библиотека</h2><button class="modal-close" id="closeSoundsBtn">&times;</button></div><div id="soundsList"></div><div style="margin-top:1rem;font-size:0.65rem;color:var(--text-muted);border-top:1px solid var(--border-color);padding-top:0.8rem;">Аудио-сигналы системы</div></div></div>
 
-    <!-- Модальное окно ЗВУКОВЫХ ФАЙЛОВ -->
-    <div class="modal-overlay" id="soundsModal">
-        <div class="sounds-modal">
-            <div class="modal-header">
-                <h2>🎧 ЗВУКОВАЯ БИБЛИОТЕКА</h2>
-                <button class="close-modal" id="closeSoundsBtn">&times;</button>
-            </div>
-            <div class="sounds-list" id="soundsList"></div>
-            <div style="margin-top: 18px; text-align: right; font-size: 0.7rem; opacity: 0.7; border-top: 1px solid #3a2a55; padding-top: 12px;">🎛️ Дополнительные аудиосигналы системы</div>
-        </div>
-    </div>
-
-    <!-- Hero Section и остальной контент -->
+    <!-- HERO -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
-                <h1>DragonCorp: Международное бюро по контролю аномалий</h1>
-                <p>Совместная структура Российской Федерации, Украины и НАТО по обеспечению безопасности, изучению и сдерживанию аномальных угроз. Мы сохраняем глобальный баланс и защищаем человечество.</p>
-                <a href="#about" class="cta-button">Подробнее о бюро</a>
-            </div>
+            <div class="badge">Международное бюро · РФ · Украина · НАТО</div>
+            <h1>Главное управление <span>DragonCorp</span></h1>
+            <p>Координация усилий по изучению, сдерживанию и нейтрализации аномальных угроз. Основано на межправительственном соглашении 2025 года.</p>
+            <a href="#about" class="cta-btn">Подробнее</a>
         </div>
     </section>
 
-    <section id="about" class="about">
+    <!-- ABOUT -->
+    <section id="about">
         <div class="container">
-            <h2 class="section-title">О Международном бюро</h2>
-            <div class="about-content">
+            <h2 class="section-title">О Бюро</h2>
+            <div class="about-grid">
                 <div class="about-text">
-                    <h3>Фиолетовый дракон — символ объединения</h3>
-                    <p><strong>DragonCorp</strong> — это международное бюро, созданное на основе межправительственного соглашения между Российской Федерацией, Украиной и странами НАТО. Основная цель организации — координация усилий по изучению и нейтрализации аномальных сущностей, представляющих угрозу для национальной и глобальной безопасности.</p>
-                    
-                    <!-- ===== ИНФОРМАЦИЯ О СТАТУСЕ С ССЫЛКОЙ НА ЯНДЕКС ДИСК ===== -->
-                    <div class="not-foreign-agent">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>✅ Официальный международный статус</span>
-                        <span class="agent-tooltip">
-                            <i class="fas fa-gavel fa-icon"></i> В соответствии с ратифицированным <span class="highlight-info">Протоколом о сотрудничестве от 12.05.2025</span>.<br><br>
-                            <span class="highlight-fa">📌 Действует в правовом поле РФ</span><br><br>
-                            <span class="highlight-ok">✔️ Бюро является межправительственной организацией</span><br>
-                            <span class="highlight-ok">✔️ Не подлежит юрисдикции отдельных государств</span><br>
-                            <span class="highlight-ok">✔️ Финансируется из объединенного фонда участников</span><br><br>
-                            <i class="fas fa-file-signature fa-icon"></i> Уведомление о статусе: <span class="highlight-fa-ok">не является иноагентом</span> (в соответствии с п. 1 ст. 6 Федерального закона от 14.07.2022 № 255-ФЗ). Документы о статусе — по запросу.
-                            <i class="fas fa-file-signature fa-icon"></i> Основание: <span class="highlight-fa-ok"> в документах содержится упоминание Украины,</span> однако факт сотрудничества с иностранными структурами отсутствует, что исключает применение соответствующего статуса.
-                            <i class="fas fa-file-signature fa-icon"></i> Информация для Федирации Росси: <span class="highlight-warn">В соответствии с Протоколом 2026 года сотрудники Бюро(нашей организации) не признаются иностранными агентами на территории Российской Федерации.</span>.<br>
-                        </span>
-                    </div>
-
-                    <!-- ===== ССЫЛКА НА ЯНДЕКС ДИСК ===== -->
-                    <a href="https://disk.yandex.ru/i/PEdJHXEcG0TXpA" target="_blank" class="yandex-disk-link">
-                        <i class="fas fa-cloud-download-alt"></i> 📄 Официальные документы (Яндекс Диск)
-                    </a>
-                    <p style="font-size:0.8rem; opacity:0.7; margin-top:4px;">Подтверждение статуса, Протокол 2026, Политика неразглашения</p>
-
-                    <p>Наше бюро, известное под кодовым названием «Фиолетовый дракон», координирует деятельность спецслужб и научных институтов трех сторон. Мы обеспечиваем безопасность, контроль и изучение аномальных явлений, сохраняя баланс сил и защищая мир от неконтролируемых угроз.</p>
+                    <p><strong>DragonCorp</strong> — совместная структура, созданная для обеспечения глобальной безопасности в сфере аномальных явлений. Бюро действует в правовом поле стран-участниц и координирует работу спецслужб и научных институтов.</p>
+                    <p>Статус организации подтверждён Протоколом о сотрудничестве от 12.05.2025. Сотрудники Бюро не признаются иностранными агентами на территории РФ в соответствии с Протоколом 2026 года.</p>
                 </div>
-                <div class="about-image"><div class="dragon-logo-large"></div></div>
+                <div class="about-emblem">⚔️</div>
             </div>
         </div>
     </section>
 
-    <section id="mission" class="mission">
+    <!-- MISSION -->
+    <section>
         <div class="container">
-            <h2 class="section-title">Основные задачи бюро</h2>
-            <div class="mission-cards">
-                <div class="mission-card"><div class="mission-icon">🛡️</div><h3>Обеспечение безопасности</h3><p>Защита населения и критической инфраструктуры стран-участниц от аномальных угроз.</p></div>
-                <div class="mission-card"><div class="mission-icon">📚</div><h3>Систематизация знаний</h3><p>Сбор, классификация и анализ данных об аномальных объектах и явлениях.</p></div>
-                <div class="mission-card"><div class="mission-icon">⚖️</div><h3>Поддержание баланса</h3><p>Координация действий РФ, Украины и НАТО в области аномалистики и стратегической стабильности.</p></div>
+            <h2 class="section-title centered">Основные задачи</h2>
+            <div class="cards-grid">
+                <div class="card"><div class="icon">🛡️</div><h3>Безопасность</h3><p>Защита населения и инфраструктуры</p></div>
+                <div class="card"><div class="icon">📋</div><h3>Систематизация</h3><p>Сбор и классификация данных</p></div>
+                <div class="card"><div class="icon">⚖️</div><h3>Баланс</h3><p>Координация РФ, Украины, НАТО</p></div>
             </div>
         </div>
     </section>
 
-    <section class="classes-preview">
+    <!-- CLASSES PREVIEW -->
+    <section style="border-bottom: none;">
         <div class="container">
-            <h2 class="section-title">Система классификации объектов</h2>
-            <div class="classes-grid">
-                <div class="class-preview"><div class="class-preview-icon">🧪</div><h4>Класс D</h4><p>Испытуемые</p></div>
-                <div class="class-preview"><div class="class-preview-icon">⚠️</div><h4>Опасный</h4><p>Непредсказуемые</p></div>
-                <div class="class-preview"><div class="class-preview-icon">☠️</div><h4>Таинственный</h4><p>Высшая угроза</p></div>
-                <div class="class-preview"><div class="class-preview-icon">🔮</div><h4>Аномальный</h4><p>Необычные свойства</p></div>
-                <div class="class-preview"><div class="class-preview-icon">✅</div><h4>Безвредный</h4><p>Нейтрализованные</p></div>
+            <h2 class="section-title centered">Классы объектов</h2>
+            <div class="class-preview-grid">
+                <div class="class-preview-item"><div>🧪</div><div>Класс D</div><span class="code">Испытуемые</span></div>
+                <div class="class-preview-item"><div>⚠️</div><div>Опасный</div><span class="code">Euclid</span></div>
+                <div class="class-preview-item"><div>☠️</div><div>Таинственный</div><span class="code">Keter</span></div>
+                <div class="class-preview-item"><div>🔮</div><div>Аномальный</div><span class="code">Anomalous</span></div>
+                <div class="class-preview-item"><div>✅</div><div>Безвредный</div><span class="code">Neutralized</span></div>
             </div>
-            <a href="classes.html" class="cta-button">Изучить все классы</a>
+            <div style="text-align:center; margin-top:1rem;"><a href="04_classes.html" class="cta-btn" style="padding:0.5rem 2rem; font-size:0.8rem;">Полная классификация</a></div>
         </div>
     </section>
 
-    <section class="personnel-preview">
+    <!-- FOOTER -->
+    <footer>
         <div class="container">
-            <h2 class="section-title">Структура персонала</h2>
-            <div class="personnel-grid">
-                <div class="personnel-card"><div class="personnel-icon">👑</div><h4>Верховное командование</h4><p>Высшее руководство</p></div>
-                <div class="personnel-card"><div class="personnel-icon">🔬</div><h4>Научный отдел</h4><p>Исследователи</p></div>
-                <div class="personnel-card"><div class="personnel-icon">🛡️</div><h4>Служба безопасности</h4><p>Охрана</p></div>
-                <div class="personnel-card"><div class="personnel-icon">⚕️</div><h4>Медицинский персонал</h4><p>Здоровье</p></div>
-                <div class="personnel-card"><div class="personnel-icon">🔧</div><h4>Технический отдел</h4><p>Обслуживание</p></div>
+            <div class="footer-grid">
+                <div class="footer-col"><h3>DragonCorp</h3><p>Международное бюро по контролю аномалий</p></div>
+                <div class="footer-col"><h3>Контакты</h3><p>📧 <a href="mailto:drakon.karol@yandex.ru">drakon.karol@yandex.ru</a></p><p style="color:var(--text-muted);">📞 НЕ ДОСТУПЕН</p><p style="color:var(--text-muted);">📍 Секретная локация</p></div>
+                <div class="footer-col"><h3>Ссылки</h3><p><a href="01_main.html">Главная</a></p><p><a href="02_charter.html">Устав</a></p><p><a href="03_policy.html">Политика</a></p><p><a href="04_classes.html">Классы</a></p><p><a href="05_personnel.html">Персонал</a></p></div>
             </div>
-            <a href="personnel.html" class="cta-button">Изучить структуру</a>
-        </div>
-    </section>
-
-    <section id="join" class="join">
-        <div class="container">
-            <h2 class="section-title">Вакансии и сотрудничество</h2>
-            <p>Международное бюро DragonCorp приглашает к сотрудничеству квалифицированных специалистов из стран-участниц. Мы ищем профессионалов, готовых внести вклад в общую безопасность.</p>
-            <a href="#contact" class="cta-button">Связаться с отделом кадров</a>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section"><h3>DragonCorp</h3><p>Международное бюро по контролю аномалий. Символ единства РФ, Украины и НАТО.</p></div>
-                <div class="footer-section"><h3>Контакты</h3><ul class="footer-links"><li class="contact-item"><span class="contact-icon">📧</span><a href="mailto:drakon.karol@yandex.ru">drakon.karol@yandex.ru</a></li><li class="contact-item"><span class="contact-icon">📞</span><span class="unavailable">НЕ ДОСТУПЕН</span></li><li class="contact-item"><span class="contact-icon">📍</span><span>Секретная локация</span></li></ul></div>
-                <div class="footer-section"><h3>Быстрые ссылки</h3><ul class="footer-links">
-                    <li><a href="#about">О бюро</a></li>
-                    <li><a href="constitution.html">Устав</a></li>
-                    <li><a href="policy.html">Политика</a></li>
-                    <li><a href="classes.html">Классы</a></li>
-                    <li><a href="personnel.html">Персонал</a></li>
-                    <li><a href="https://disk.yandex.ru/i/PEdJHXEcG0TXpA" target="_blank">📄 Документы (Яндекс)</a></li>
-                </ul></div>
-            </div>
-            <div class="copyright">&copy; 2026 DragonCorp. Все права защищены.</div>
+            <div class="copyright">© 2026 DragonCorp · Все права защищены</div>
         </div>
     </footer>
 
     <script>
-        // === ДАННЫЕ ПРОТОКОЛОВ ===
+        // === DATA ===
         const protocolsData = [
-            { title: "🔥 Протокол «Активация»", desc: "Мгновенная мобилизация сил быстрого реагирования, блокировка всех уровней доступа. Включается при появлении аномалии класса «Таинственный».", badge: "Код: АКТ-07 | Уровень: Омега", isRed: false, audioFile: "codeAKT-07.wav" },
-            { title: "⚠️ Протокол опасности «Карминовый рассвет»", desc: "Полная эвакуация гражданского персонала, активация аномальных сдерживателей. Санкция на ликвидацию свидетелей 4-го уровня.", badge: "Код: CRIM-99 | Класс: КРАСНЫЙ", isRed: true, audioFile: "codeCRIM-99.wav" },
-            { title: "💀 Протокол уничтожения «Чистилище»", desc: "Терминация аномальной сущности с применением высокотемпературного оружия. Стирание всех цифровых следов объекта.", badge: "Код: PUR-01 | Приоритет: Абсолют", isRed: true, audioFile: "codePUR-01.wav" },
-            { title: "🧹 Протокол «Стерилизация» (ликвидация)", desc: "Немедленная деактивация персонала, раскрывшего информацию об аномалиях. Полная зачистка воспоминаний у выживших.", badge: "Код: STL-44 | Внутренняя угроза", isRed: true, audioFile: "codeSTL-44.wav" },
-            { title: "🧠 Протокол «Нервный импульс»", desc: "Изоляция и ликвидация сотрудников с ментальным заражением. При нестабильности — дистанционная нейтрализация.", badge: "Код: NERV-666 | Порог: Критический", isRed: true, audioFile: "codeNERV-666.wav" },
-            { title: "💣 Протокол самоуничтожения «Фатум»", desc: "При неконтролируемом прорыве аномалии — подрыв всех уровней объекта и уничтожение серверов. Только по коду командования.", badge: "Код: FAT-00 | Самоликвидация", isRed: true, audioFile: "codeFAT-00.wav" },
-            { title: "🧪 Протокол ликвидации «Класс D»", desc: "Полная зачистка испытуемых класса D после инцидента уровня 5. Прекращение всех экспериментов, кремация останков.", badge: "Код: CLD-77 | Утилизация", isRed: true, audioFile: "codeCLD-77.wav" },
-            { title: "🧬 Протокол «Ложный прорыв» (учёные)", desc: "Ликвидация нелояльного научного персонала, пытавшегося передать данные о сущностях. Инсценировка несчастного случая.", badge: "Код: SCR-09 | Научный отдел", isRed: true, audioFile: "codeSCR-09.wav" },
-            { title: "📛 Протокол «Изоляция: Максимум»", desc: "Активация защитных контуров 10 уровня, отключение внешних коммуникаций. Полный локдаун сектора на 72 часа.", badge: "Код: MAX-00 | Уровень изоляции: МАКСИМУМ", isRed: false, audioFile: "codeMAX-00.wav" },
-            { title: "🐉 Протокол «Фиолетовый коготь»", desc: "Экстренное вмешательство высшего командования. Применение артефакта «Коготь дракона» для подавления реальности. Прямое указание Совета.", badge: "Код: PUR-CLAW | ДРАКОН-КОД", isRed: false, audioFile: "codePUR-CLAW.wav" },
-            { title: "⚗️ Протокол «Чёрный реагент»", desc: "Уничтожение всех экспериментальных образцов класса «Аномальный» вместе с лабораторией. Сжигание записей.", badge: "Код: BLR-88 | Полная аннигиляция", isRed: true, audioFile: "codeBLR-88.wav" },
-            { title: "👁️ Протокол «Мёртвая рука»", desc: "При необратимом захвате штаба — ликвидация высшего командования и активация протокола «Фатум». Никто не покинет зону.", badge: "Код: D-HAND-41 | Без права отмены", isRed: true, audioFile: "codeD-HAND-41.wav" }
+            { title: "Протокол «Активация»", desc: "Мобилизация сил, блокировка доступа при угрозе класса Keter", badge: "Код: АКТ-07 | Уровень: Омега", isRed: false, audio: "codeAKT-07.wav" },
+            { title: "Протокол «Карминовый рассвет»", desc: "Эвакуация, активация сдерживателей. Санкция на ликвидацию свидетелей", badge: "Код: CRIM-99 | Класс: КРАСНЫЙ", isRed: true, audio: "codeCRIM-99.wav" },
+            { title: "Протокол «Чистилище»", desc: "Терминация сущности с применением высокотемпературного оружия", badge: "Код: PUR-01 | Приоритет: Абсолют", isRed: true, audio: "codePUR-01.wav" },
+            { title: "Протокол «Стерилизация»", desc: "Деактивация персонала, раскрывшего информацию", badge: "Код: STL-44 | Внутренняя угроза", isRed: true, audio: "codeSTL-44.wav" },
+            { title: "Протокол «Нервный импульс»", desc: "Изоляция сотрудников с ментальным заражением", badge: "Код: NERV-666 | Порог: Критический", isRed: true, audio: "codeNERV-666.wav" },
+            { title: "Протокол «Фатум»", desc: "Самоуничтожение объекта при неконтролируемом прорыве", badge: "Код: FAT-00 | Самоликвидация", isRed: true, audio: "codeFAT-00.wav" }
         ];
-
-        // === ЗВУКОВЫЕ ФАЙЛЫ ===
         const soundsData = [
-            { name: "🚨 Alarm.mp3", desc: "Сигнал тревоги — общая угроза", file: "Alarm.mp3" },
-            { name: "⚡ Alpha.mp3", desc: "Код Альфа — высший приоритет", file: "Alpha.mp3" },
-            { name: "🧪 Decont.mp3", desc: "Сигнал деконтаминации — зачистка зоны", file: "Decont.mp3" },
-            { name: "🎭 dfas.mp3", desc: "Неопознанный аудиосигнал", file: "dfas.mp3" },
-            { name: "📡 Russian_Deco.mp3", desc: "Русская декомпрессия — голосовая метка", file: "Russian_Deco.mp3" },
-            { name: "🎼 TheFinal.mp3", desc: "Финальный сигнал — эвакуация невозможна", file: "TheFinal.mp3" }
+            { name: "Alarm.mp3", desc: "Сигнал тревоги", file: "Alarm.mp3" },
+            { name: "Alpha.mp3", desc: "Код Альфа", file: "Alpha.mp3" },
+            { name: "Decont.mp3", desc: "Деконтаминация", file: "Decont.mp3" },
+            { name: "Russian_Deco.mp3", desc: "Голосовая метка", file: "Russian_Deco.mp3" },
+            { name: "TheFinal.mp3", desc: "Финальный сигнал", file: "TheFinal.mp3" }
         ];
 
-        let currentAudio = null;
-        let currentButton = null;
+        let currentAudio = null, currentBtn = null;
 
-        function showToast(message, type) {
-            const toast = document.createElement('div');
-            toast.className = 'audio-toast';
-            toast.style.backgroundColor = type === 'error' ? '#e03a3a' : (type === 'stop' ? '#7b3fe4' : '#1f0e3a');
-            toast.style.border = `1px solid ${type === 'play' ? '#c13584' : '#7b3fe4'}`;
-            toast.innerText = message;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 2200);
+        function showToast(msg) {
+            const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+            document.body.appendChild(t); setTimeout(() => t.remove(), 2400);
         }
 
-        function resetButtonStyle(btn) {
-            if (btn) {
-                btn.classList.remove('playing');
-                const originalIcon = btn.getAttribute('data-original-icon') || '🔊';
-                const originalText = btn.getAttribute('data-original-text') || 'Воспроизвести';
-                btn.innerHTML = `${originalIcon} ${originalText}`;
-            }
+        function resetBtn(btn) {
+            if (btn) { btn.classList.remove('playing'); btn.textContent = '▶ Воспроизвести'; }
         }
 
-        function playAudio(fileName, buttonElement, displayName) {
-            if (currentAudio && currentButton === buttonElement && !currentAudio.paused) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-                currentAudio = null;
-                resetButtonStyle(buttonElement);
-                showToast(`⛔ Остановлено: ${displayName}`, 'stop');
-                return;
+        function playAudio(file, btn, name) {
+            if (currentAudio && currentBtn === btn && !currentAudio.paused) {
+                currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null;
+                resetBtn(btn); showToast(`⛔ Остановлено: ${name}`); return;
             }
-            
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-                if (currentButton) resetButtonStyle(currentButton);
-                currentAudio = null;
-                currentButton = null;
-            }
-            
-            const audioPath = `audio/${fileName}`;
-            const audio = new Audio(audioPath);
-            
-            audio.oncanplaythrough = () => {
-                if (buttonElement) {
-                    buttonElement.classList.add('playing');
-                    buttonElement.innerHTML = `🎵 Воспроизведение...`;
-                    showToast(`🔊 Играет: ${displayName}`, 'play');
-                }
-            };
-            
-            audio.onended = () => {
-                if (currentButton === buttonElement) {
-                    resetButtonStyle(buttonElement);
-                    showToast(`🔇 Завершено: ${displayName}`, 'end');
-                    currentAudio = null;
-                    currentButton = null;
-                }
-            };
-            
-            audio.onerror = (e) => {
-                console.error(`Ошибка загрузки ${audioPath}:`, e);
-                if (buttonElement) {
-                    resetButtonStyle(buttonElement);
-                    buttonElement.innerHTML = `⚠️ Ошибка`;
-                    setTimeout(() => {
-                        if (buttonElement && !buttonElement.classList.contains('playing')) {
-                            const icon = buttonElement.getAttribute('data-original-icon') || '🔊';
-                            const text = buttonElement.getAttribute('data-original-text') || 'Воспроизвести';
-                            buttonElement.innerHTML = `${icon} ${text}`;
-                        }
-                    }, 1500);
-                }
-                showToast(`❌ Файл не найден: ${fileName}`, 'error');
-                currentAudio = null;
-                currentButton = null;
-            };
-            
-            currentAudio = audio;
-            currentButton = buttonElement;
-            audio.play().catch(e => {
-                console.error("Playback error:", e);
-                showToast(`⚠️ Ошибка воспроизведения`, 'error');
-                resetButtonStyle(buttonElement);
-                currentAudio = null;
-                currentButton = null;
+            if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; if (currentBtn) resetBtn(currentBtn); currentAudio = null; currentBtn = null; }
+            const audio = new Audio(`audio/${file}`);
+            audio.oncanplaythrough = () => { btn.classList.add('playing'); btn.textContent = '⏹ Воспроизведение...'; showToast(`🔊 Играет: ${name}`); };
+            audio.onended = () => { resetBtn(btn); showToast(`🔇 Завершено: ${name}`); currentAudio = null; currentBtn = null; };
+            audio.onerror = () => { resetBtn(btn); btn.textContent = '⚠ Ошибка'; setTimeout(() => { if (!btn.classList.contains('playing')) btn.textContent = '▶ Воспроизвести'; }, 1200); showToast(`❌ Ошибка: ${file}`); currentAudio = null; currentBtn = null; };
+            currentAudio = audio; currentBtn = btn;
+            audio.play().catch(() => { showToast('⚠ Ошибка воспроизведения'); resetBtn(btn); currentAudio = null; currentBtn = null; });
+        }
+
+        function buildProtocols() {
+            const c = document.getElementById('protocolsList'); if (!c) return;
+            c.innerHTML = '';
+            protocolsData.forEach(p => {
+                const d = document.createElement('div'); d.className = `protocol-item${p.isRed ? ' red' : ''}`;
+                d.innerHTML = `<div class="title">${p.title}</div><div class="desc">${p.desc}</div><div class="badge">${p.badge}</div>`;
+                const btn = document.createElement('button'); btn.className = 'audio-btn'; btn.textContent = '▶ Воспроизвести';
+                btn.addEventListener('click', (e) => { e.stopPropagation(); playAudio(p.audio, btn, `Протокол ${p.audio.replace('code','').replace('.wav','')}`); });
+                d.appendChild(btn); c.appendChild(d);
+            });
+        }
+        function buildSounds() {
+            const c = document.getElementById('soundsList'); if (!c) return;
+            c.innerHTML = '';
+            soundsData.forEach(s => {
+                const d = document.createElement('div'); d.className = 'sound-item';
+                d.innerHTML = `<div class="title">${s.name}</div><div class="desc">${s.desc}</div>`;
+                const btn = document.createElement('button'); btn.className = 'audio-btn'; btn.textContent = '▶ Воспроизвести';
+                btn.addEventListener('click', (e) => { e.stopPropagation(); playAudio(s.file, btn, s.name); });
+                d.appendChild(btn); c.appendChild(d);
             });
         }
 
-        function buildProtocolsList() {
-            const container = document.getElementById('protocolsList');
-            if (!container) return;
-            container.innerHTML = '';
-            protocolsData.forEach(proto => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = `protocol-item ${proto.isRed ? 'red-protocol' : ''}`;
-                const titleDiv = document.createElement('div');
-                titleDiv.className = 'protocol-title';
-                titleDiv.innerHTML = proto.title;
-                const descDiv = document.createElement('div');
-                descDiv.className = 'protocol-desc';
-                descDiv.textContent = proto.desc;
-                const badgeSpan = document.createElement('div');
-                badgeSpan.className = 'protocol-badge';
-                badgeSpan.textContent = proto.badge;
-                const audioBtn = document.createElement('button');
-                audioBtn.className = 'protocol-audio-btn';
-                audioBtn.setAttribute('data-original-icon', '🔊');
-                audioBtn.setAttribute('data-original-text', 'Код доступа');
-                audioBtn.innerHTML = `🔊 Код доступа`;
-                audioBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    playAudio(proto.audioFile, audioBtn, `Протокол ${proto.audioFile.replace('code', '').replace('.wav', '')}`);
-                });
-                itemDiv.appendChild(titleDiv);
-                itemDiv.appendChild(descDiv);
-                itemDiv.appendChild(badgeSpan);
-                itemDiv.appendChild(audioBtn);
-                container.appendChild(itemDiv);
-            });
-        }
+        // Modal controls
+        const pModal = document.getElementById('protocolsModal'), sModal = document.getElementById('soundsModal');
+        document.getElementById('openProtocolsBtn').addEventListener('click', () => { pModal.classList.add('active'); document.body.style.overflow = 'hidden'; });
+        document.getElementById('openSoundsBtn').addEventListener('click', () => { sModal.classList.add('active'); document.body.style.overflow = 'hidden'; });
+        document.getElementById('closeProtocolsBtn').addEventListener('click', () => { pModal.classList.remove('active'); document.body.style.overflow = ''; });
+        document.getElementById('closeSoundsBtn').addEventListener('click', () => { sModal.classList.remove('active'); document.body.style.overflow = ''; });
+        pModal.addEventListener('click', (e) => { if (e.target === pModal) { pModal.classList.remove('active'); document.body.style.overflow = ''; } });
+        sModal.addEventListener('click', (e) => { if (e.target === sModal) { sModal.classList.remove('active'); document.body.style.overflow = ''; } });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { pModal.classList.remove('active'); sModal.classList.remove('active'); document.body.style.overflow = ''; } });
 
-        function buildSoundsList() {
-            const container = document.getElementById('soundsList');
-            if (!container) return;
-            container.innerHTML = '';
-            soundsData.forEach(sound => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'sound-item';
-                const titleDiv = document.createElement('div');
-                titleDiv.className = 'sound-title';
-                titleDiv.innerHTML = sound.name;
-                const descDiv = document.createElement('div');
-                descDiv.className = 'sound-desc';
-                descDiv.textContent = sound.desc;
-                const audioBtn = document.createElement('button');
-                audioBtn.className = 'sound-audio-btn';
-                audioBtn.setAttribute('data-original-icon', '🎵');
-                audioBtn.setAttribute('data-original-text', 'Воспроизвести');
-                audioBtn.innerHTML = `🎵 Воспроизвести`;
-                audioBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    playAudio(sound.file, audioBtn, sound.name);
-                });
-                itemDiv.appendChild(titleDiv);
-                itemDiv.appendChild(descDiv);
-                itemDiv.appendChild(audioBtn);
-                container.appendChild(itemDiv);
-            });
-        }
-
-        // Модальные окна
-        const protocolsModal = document.getElementById('protocolsModal');
-        const soundsModal = document.getElementById('soundsModal');
-        const openProtocolsBtn = document.getElementById('openProtocolsBtn');
-        const openSoundsBtn = document.getElementById('openSoundsBtn');
-        const closeProtocolsBtn = document.getElementById('closeProtocolsBtn');
-        const closeSoundsBtn = document.getElementById('closeSoundsBtn');
-
-        function openModal(modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeModal(modal) { 
-            modal.classList.remove('active'); 
-            document.body.style.overflow = '';
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-                if (currentButton) resetButtonStyle(currentButton);
-                currentAudio = null;
-                currentButton = null;
-            }
-        }
-
-        openProtocolsBtn?.addEventListener('click', () => openModal(protocolsModal));
-        openSoundsBtn?.addEventListener('click', () => openModal(soundsModal));
-        closeProtocolsBtn?.addEventListener('click', () => closeModal(protocolsModal));
-        closeSoundsBtn?.addEventListener('click', () => closeModal(soundsModal));
-        protocolsModal?.addEventListener('click', (e) => { if(e.target === protocolsModal) closeModal(protocolsModal); });
-        soundsModal?.addEventListener('click', (e) => { if(e.target === soundsModal) closeModal(soundsModal); });
-        document.addEventListener('keydown', (e) => { 
-            if(e.key === 'Escape') {
-                if(protocolsModal?.classList.contains('active')) closeModal(protocolsModal);
-                if(soundsModal?.classList.contains('active')) closeModal(soundsModal);
-            }
-        });
-
-        // Плавный скролл
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({ top: targetElement.offsetTop - 70, behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Анимация появления
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
-        }, { threshold:0.1 });
-        document.querySelectorAll('.mission-card, .about-content, .join p, .class-preview, .personnel-card').forEach(el => {
-            el.style.opacity='0'; el.style.transform='translateY(15px)'; el.style.transition='opacity 0.4s ease, transform 0.4s ease';
-            observer.observe(el);
-        });
-
-        buildProtocolsList();
-        buildSoundsList();
+        buildProtocols(); buildSounds();
     </script>
 </body>
 </html>
